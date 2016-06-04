@@ -21,6 +21,7 @@ controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bo
 
     var attachments = [];
     var attachment = {
+        fallback: "Leaderboard",
         title: 'Leaderboard',
         text: '1. :crown: *STELLA*\t |  5 :watermelon:\n 2. *Alex*\t |  4 :watermelon:\n3. *Eric*\t |  3 :watermelon:\n 4. *Darryl*\t |  3 :watermelon:\n',
         mrkdwn_in: ["text"],
