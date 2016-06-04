@@ -1,18 +1,6 @@
 console.log("stats file");
 
-// Example 2
-controller.hears(['world'], ['direct_message','direct_mention','mention'], function(bot,message) {
-
-    // start a conversation to handle this response.
-    bot.startConversation(message,function(err,convo) {
-
-        convo.say('Hello!');
-        convo.say('Have a nice day!');
-
-    });
-});
-
-// Example 3
+// Get the current score
 controller.hears(['score'],['direct_message','direct_mention'],function(bot,message) {
 
     var attachments = [];
