@@ -13,6 +13,7 @@ function stats(slashCommand, message) {
     
     var attachments = [];
     var attachment = {
+        fallback: "Stats",
         title: "19:45 into the 2nd Period",
         title_link: 'http://nhl.com',
         color: '#2f5997',
@@ -57,6 +58,7 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
 
     var attachments = [];
     var attachment = {
+        fallback: "Score",
         title: "19:45 into the 2nd Period",
         title_link: 'http://nhl.com',
         color: '#08ddf1',
@@ -95,6 +97,7 @@ controller.hears(['favoured by'],['direct_message','direct_mention'],function(bo
 
     var attachments = [];
     var attachment = {
+        fallback: "Stats",
         title: 'Team Stats',
         text: "*Penguins* favoured by $NUM_POINTS",
         mrkdwn_in: ["text"],
