@@ -8,8 +8,7 @@ Show games that can be bet on - outputs gameID, date, time, team names.
     /games [current, upcoming]      -   shows current or upcoming games
 
 */
-console.log("teams file");
-
+console.log("games file");
 
 controller.on('slash_command', function (slashCommand, message) {
 
