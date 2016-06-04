@@ -18,23 +18,37 @@ function leaderboard(slashCommand, message) {
     showLeaderboard(slashCommand, message);
 }
 
+// Listening methods
 controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bot,message) {
-    showLeaderboard(bot, message);
+    var responseObj = showLeaderboard(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
 });
 
 controller.hears(['my position'],['direct_message','direct_mention'],function(bot,message) {
-    showPosition(bot, message);
+    var responseObj = showPosition(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
 });
 
 controller.hears(['winner'],['direct_message','direct_mention'],function(bot,message) {
-    winnerMessage(bot, message);
+    var responseObj = winnerMessage(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
 });
 
 controller.hears(['loser'],['direct_message','direct_mention'],function(bot,message) {
-    loserMessage(bot, message);
+    var responseObj = loserMessage(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
 });
 
-function showPosition(bot, message) {
+// Getters
+function showPosition() {
     var attachments = [];
     var attachment = {
         fallback: "Leaderboard position",
@@ -44,14 +58,10 @@ function showPosition(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 }
 
-function showLeaderboard(bot, message) {
+function showLeaderboard() {
     var attachments = [];
     var attachment = {
         fallback: "Leaderboard",
@@ -62,14 +72,10 @@ function showLeaderboard(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 }
 
-function winnerMessage(bot, message) {
+function winnerMessage() {
     var attachments = [];
     var attachment = {
         fallback: "Winner",
@@ -79,14 +85,10 @@ function winnerMessage(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 }
 
-function loserMessage(bot, message) {
+function loserMessage() {
     var attachments = [];
     var attachment = {
         fallback: "Loser",
@@ -96,9 +98,5 @@ function loserMessage(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 }
