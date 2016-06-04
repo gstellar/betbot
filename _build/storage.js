@@ -19,6 +19,22 @@ controller.storage.teams.get(message.team, function(err, team_data){
 });
 */
 
+/*
+
+controller.storage.users.save({id: message.user, foo:'bar'}, function(err) { ... });
+controller.storage.users.get(id, function(err, user_data) {...});
+controller.storage.users.all(function(err, all_user_data) {...});
+
+controller.storage.channels.save({id: message.channel, foo:'bar'}, function(err) { ... });
+controller.storage.channels.get(id, function(err, channel_data) {...});
+controller.storage.channels.all(function(err, all_channel_data) {...});
+
+controller.storage.teams.save({id: message.team, foo:'bar'}, function(err) { ... });
+controller.storage.teams.get(id, function(err, team_data) {...});
+controller.storage.teams.all(function(err, all_team_data) {...});
+
+*/
+
 var Store = require('jfs');
 
 module.exports = function(config) {
