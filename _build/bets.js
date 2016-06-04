@@ -24,14 +24,30 @@ controller.on('slash_command', function(bot, message) {
     // and maybe message.text...
     // use EITHER replyPrivate or replyPublic...
     
-    // if (numberBets > 0 && args == 0) {
+    // If no args are given and the user has at least one bet placed,
+    // list all user's bets
+    // if ((numberBets > 0 && args == 0) || args[1] == 'mine') {
         // bot.replyPrivate(message, 'Here are your bets: ' + bets);
     // }
-    // else if (numberBets == 0 && args == 0) {
-        // bot.replyPrivate(message, 'Do you want to make a bet? Use /bet [gameID] [team name]');
+    // If no args are given and user has no bets,
+    // prompt user to make a bet
+    // else if (numberBets == 0 && (args == 0 || args[1] == 'mine')) {
+        // bot.replyPrivate(message, 'You do not have any active bets. Do you want to make a bet? Use /bet [gameID] [team name]');
     // }
+    // else if (args[1] == 'all') {
+        // bot.replyPrivate(message, 'Here are all the active bets: ' + bets);
+    // }
+    // else {
+            // if (check ID and team name) {
+            // place bet
+            // }
+            // else {
+            //     bot.replyPrivate(message, 'Sorry, that game ID and team name combination is not correct' + bets);
+            // }
+    // }
+   
     
-    bot.replyPrivate(message, 'Sorry, the following command is not yet set up: ' + message.command);
+    bot.replyPrivate(message, 'Sorry, the following command is not yet set up: ' + message.command + 'Yell at Stella');
     
     // bot.replyPrivateDelayed(message, ':dash:');
 

@@ -2,6 +2,9 @@
 
 View scores and stats in real time.
 
+#Usage
+    Call score on the bot to see the current status on your bets
+
  */
 
 // Get the current score
@@ -9,17 +12,22 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
 
     var attachments = [];
     var attachment = {
-        title: 'Penguins: 1, Sharks 2',
-        color: '#FFCC99',
+        title: 'Penguins 1 - 2 Sharks',
+        color: '#2f5997',
         fields: [],
     };
 
     attachment.fields.push({
         label: 'Field',
-        value: "You're winning!",
+        value: "19:45 into the 2nd Period",
         short: false,
     });
 
+    attachment.fields.push({
+        label: 'Field',
+        value: "Penguins lead the series 2 - 0",
+        short: false,
+    });
 
     attachments.push(attachment);
 
