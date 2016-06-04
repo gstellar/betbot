@@ -67,10 +67,60 @@ function bet(slashCommand, message) {
 //     bot.reply(message,"You can view your bets using the '/bet' slash command.");
 // });
 
-controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
+controller.hears(['place a bet'],['direct_message','direct_mention'],function(bot,message) {
+    // controller.storage.users.save(user, function(err, id) {
+        bot.reply(message,"What is the game ID?");
+        // controller.storage.users.save(user, function(err, id) {
+            bot.reply(message,"Which team are you betting on?");
+            // controller.storage.users.save(user, function(err, id) {
+                bot.reply(message,"What are you betting?");
+            // });
+        // });
+    // });
+    
+    // placeBet(bot, message, ID, team, bet);
+});
 
+controller.hears(['place bet (.*) (.*) (.*)'],['direct_message','direct_mention'],function(bot,message) {
+    var gameID = message.match[1];
+    var team = message.match[2];
+    var bet = message.match[3]
+    bot.reply(message, "Success!");
+    placeBet(bot, message, gameID, team, bet);
+});
+
+controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
     myBets(bot, message);
 });
+
+controller.hears(['all bets'],['direct_message','direct_mention'],function(bot,message) {
+    allBets(bot, message);
+});
+
+function placeBet(bot, message, gameID, team, bet) {
+    var attachments = [];
+    var attachment = {
+        fallback: "Place Bet",
+        label: 'Field',
+        title: "You bet: " + bet + ":taco: on the " + team,
+        short: false,
+    };
+
+    // attachment.fields.push({
+    //     label: 'Field',
+    //     value: "May the odds be ever in your favour",
+    //     short: false,
+    // });
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+
+}
 
 function myBets(bot, message) {
     var attachments = [];
@@ -82,6 +132,12 @@ function myBets(bot, message) {
         fields: [],
         short: false,
     };
+    
+    attachment.fields.push({
+        label: 'Field',
+        value: "Game ID: 927",
+        short: false,
+    });
 
     attachment.fields.push({
         label: 'Field',
@@ -91,7 +147,7 @@ function myBets(bot, message) {
 
     attachment.fields.push({
         label: 'Field',
-        title: "You bet: 10 :taco:",
+        title: "You bet: 10 :taco: on the Sharks",
         short: false,
     });
 
@@ -111,4 +167,54 @@ function myBets(bot, message) {
 
 }
 
+function allBets(bot, message) {    
+    var attachments = [];
+    var attachment = {
+        fallback: "Sharks vs. Penguins",
+        title: "Sharks vs. Penguins",
+        title_link: 'http://nhl.com',
+        color: '#ff007f',
+        fields: [],
+        short: false,
+    };
+    
+    attachment.fields.push({
+        label: 'Field',
+        value: "Game ID: 927",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "June 26th 2016 at 7:00 EST",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        title: "You bet: 10 :taco: on the Sharks",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        title: "Alex bet: 10 :taco: on the Sharks",
+        short: false,
+    });
+    
+    attachment.fields.push({
+        label: 'Field',
+        title: "Darryl bet: 10 :taco: on the Penguins",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+
+}
 
