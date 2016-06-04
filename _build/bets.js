@@ -19,13 +19,13 @@ How can you change your bet?
 //     controller.createWebhookEndpoints(webserver);
 // });
 function bet(slashCommand, message) {
-    console.log("bet command");
+    // console.log("bet command");
     
     myBets(slashCommand, message);
     
-    slashCommand.replyPublic(message, "1", function() {
-        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    });
+    // slashCommand.replyPublic(message, "1", function() {
+    //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    // });
 }
 
 
