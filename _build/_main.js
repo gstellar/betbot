@@ -21,6 +21,6 @@ controller.spawn({
 require('./bets.js');
 require('./leaderboard.js');
 require('./stats.js');
-require('./teams.js');
+require('./games.js');
 require('./conversations.js');
 
