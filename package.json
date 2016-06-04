@@ -17,10 +17,8 @@
   },
   "homepage": "https://github.com/gstellar/gbookie#readme",
   "dependencies": {
-    "botkit": "^0.2.0"
-  },
-  "devDependencies": {
-    "express": "^4.13.4",
-    "localtunnel": "^1.8.1"
+    "botkit": "^0.2.0",
+    "lodash": "^4.13.1",
+    "request-promise": "^3.0.0"
   }
 }
