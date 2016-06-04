@@ -8,11 +8,30 @@ function games(slashCommand, message) {
 }
 
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
-    upcomingGames(bot, message);
+    var responseObj = getUpcomingGames(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
 
 });
 
-function upcomingGames(bot, message) {
+controller.hears(['all'],['direct_message','direct_mention'],function(bot,message) {
+    var responseObj = getAllGames(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
+
+});
+
+controller.hears(['current'],['direct_message','direct_mention'],function(bot,message) {
+    var responseObj = getCurrentGames(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
+
+});
+
+function getUpcomingGames() {
     var attachments = [];
     var attachment = {
         title: "Game 4 begins June 6, 2016",
@@ -30,14 +49,10 @@ function upcomingGames(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 }
 
-function allGames(bot, message) {
+function getAllGames() {
     var attachments = [];
     var attachment = {
         title: "Game 4 begins June 6, 2016",
@@ -55,14 +70,10 @@ function allGames(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 }
 
-function currentGames(bot, message) {
+function getCurrentGames() {
     var attachments = [];
     var attachment = {
         title: "Game 4 begins June 6, 2016",
@@ -80,11 +91,7 @@ function currentGames(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 }
 
 // function games() {
