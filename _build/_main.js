@@ -18,6 +18,11 @@ controller.spawn({
   }
 });
 
+// used to store dat to JSON file
+// var controller = Botkit.slackbot({
+//   storage: storage.js
+// });
+
 require('./bets.js');
 require('./leaderboard.js');
 require('./stats.js');
