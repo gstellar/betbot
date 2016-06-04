@@ -8,6 +8,7 @@ games = function games(slashCommand, message) {
     
 }
 
+// Listening methods
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
     var responseObj = getUpcomingGames(bot, message);
     bot.reply(message,responseObj, function(err,resp) {
@@ -32,6 +33,7 @@ controller.hears(['current'],['direct_message','direct_mention'],function(bot,me
 
 });
 
+// Getters
 function getUpcomingGames() {
     var attachments = [];
     var attachment = {
