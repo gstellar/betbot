@@ -19,11 +19,72 @@ function stats(slashCommand, message) {
     // });
 }
 
+// Listening methods
 controller.hears(['stats'],['direct_message','direct_mention'],function(bot,message) {
-    myStats(bot, message);
+    var responseObj = getStats(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
+
 });
 
 controller.hears(['score'],['direct_message','direct_mention'],function(bot,message) {
+    var responseObj = getScore(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
+});
+
+controller.hears(['favoured by'],['direct_message','direct_mention'],function(bot,message) {
+    var responseObj = getFavour(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
+
+});
+
+// Getters
+function getStats() {
+    var attachments = [];
+    var attachment = {
+        fallback: "Stats",
+        title: "19:45 into the 2nd Period",
+        title_link: 'http://nhl.com',
+        color: '#2f5997',
+        fields: [
+            {
+                title: "Penguins",
+                value: "1",
+                short: true
+            },
+            {
+                title:"Sharks",
+                value: "2",
+                short: true
+            }
+        ],
+        short: false,
+    };
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "Penguins lead the series 2 - 0",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+    return {attachments: attachments};
+
+
+    // slashCommand.replyPublic(message, {
+    //     attachments: attachments,
+    // },function(err,resp) {
+    //     console.log(err,resp);
+    // });
+}
+
+function getScore() {
 
     var attachments = [];
     var attachment = {
@@ -54,16 +115,10 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
-});
+    return {attachments: attachments};
+}
 
-// Get the current score
-controller.hears(['favoured by'],['direct_message','direct_mention'],function(bot,message) {
-
+function getFavour() {
     var attachments = [];
     var attachment = {
         fallback: "Stats",
@@ -74,57 +129,8 @@ controller.hears(['favoured by'],['direct_message','direct_mention'],function(bo
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
-});
-
-function myStats(bot, message) {
-    var attachments = [];
-    var attachment = {
-        fallback: "Stats",
-        title: "19:45 into the 2nd Period",
-        title_link: 'http://nhl.com',
-        color: '#2f5997',
-        fields: [
-            {
-                title: "Penguins",
-                value: "1",
-                short: true
-            },
-            {
-                title:"Sharks",
-                value: "2",
-                short: true
-            }
-        ],
-        short: false,
-    };
-
-    attachment.fields.push({
-        label: 'Field',
-        value: "Penguins lead the series 2 - 0",
-        short: false,
-    });
-
-    attachments.push(attachment);
-
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
-
-
-    // slashCommand.replyPublic(message, {
-    //     attachments: attachments,
-    // },function(err,resp) {
-    //     console.log(err,resp);
-    // });
+    return {attachments: attachments};
 }
-
 
 console.log("stats file");
 
