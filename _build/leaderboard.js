@@ -16,3 +16,21 @@ function leaderboard(slashCommand, message) {
         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
     });
 }
+
+controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bot,message) {
+
+    var attachments = [];
+    var attachment = {
+        title: 'Leaderboard',
+        text: '1. :crown: *STELLA*\t |  5 :watermelon:\n 2. *Alex*\t |  4 :watermelon:\n3. *Eric*\t |  3 :watermelon:\n 4. *Darryl*\t |  3 :watermelon:\n',
+        mrkdwn_in: ["text"],
+    };
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+});
