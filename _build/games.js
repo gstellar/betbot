@@ -8,7 +8,11 @@ function games(slashCommand, message) {
 }
 
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
+    upcomingGames(bot, message);
 
+});
+
+function upcomingGames(bot, message) {
     var attachments = [];
     var attachment = {
         title: "Game 4 begins June 6, 2016",
@@ -31,7 +35,57 @@ controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,m
     },function(err,resp) {
         console.log(err,resp);
     });
-});
+}
+
+function allGames(bot, message) {
+    var attachments = [];
+    var attachment = {
+        title: "Game 4 begins June 6, 2016",
+        title_link: 'http://nhl.com',
+        color: '#ff6600',
+        fields: [],
+        short: false,
+    };
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "Sharks lead the series 2 - 0",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+}
+
+function currentGames(bot, message) {
+    var attachments = [];
+    var attachment = {
+        title: "Game 4 begins June 6, 2016",
+        title_link: 'http://nhl.com',
+        color: '#ff6600',
+        fields: [],
+        short: false,
+    };
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "Sharks lead the series 2 - 0",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+}
 
 // function games() {
 //     console.log("games command");
