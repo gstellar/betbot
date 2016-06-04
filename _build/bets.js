@@ -13,11 +13,11 @@ How can you change your bet?
 
 */
 
-console.log("bets file");
+// console.log("bets file");
 
-controller.setupWebserver(3000, function(err, webserver) {
-    controller.createWebhookEndpoints(webserver);
-});
+// controller.setupWebserver(3000, function(err, webserver) {
+//     controller.createWebhookEndpoints(webserver);
+// });
 
 controller.on('slash_command', function(bot, message) {
     // check message.command
