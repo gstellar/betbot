@@ -1,4 +1,8 @@
-console.log("stats file");
+/*
+
+View scores and stats in real time.
+
+ */
 
 // Get the current score
 controller.hears(['score'],['direct_message','direct_mention'],function(bot,message) {
@@ -25,3 +29,6 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
         console.log(err,resp);
     });
 });
+
+console.log("stats file");
+
