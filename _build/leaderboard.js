@@ -23,7 +23,7 @@ controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bo
 });
 
 controller.hears(['my position'],['direct_message','direct_mention'],function(bot,message) {
-    showLeaderboard(bot, message);
+    showPosition(bot, message);
 });
 
 controller.hears(['winner'],['direct_message','direct_mention'],function(bot,message) {
@@ -37,8 +37,7 @@ controller.hears(['loser'],['direct_message','direct_mention'],function(bot,mess
 function showPosition(bot, message) {
     var attachments = [];
     var attachment = {
-        fallback: "Leaderboard",
-        title: 'Leaderboard',
+        fallback: "Leaderboard position",
         text: '1. :crown: *STELLA*\t |  5 :watermelon:',
         mrkdwn_in: ["text"],
     };
