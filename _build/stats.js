@@ -40,5 +40,25 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
     });
 });
 
+// Get the current score
+controller.hears(['teststats'],['direct_message','direct_mention'],function(bot,message) {
+
+    var attachments = [];
+    var attachment = {
+        title: 'Team Stats',
+        text: "*Penguins* favoured by $NUM_POINTS",
+        mrkdwn_in: ["text"],
+    };
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+});
+
+
 console.log("stats file");
 
