@@ -12,9 +12,11 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
 
     var attachments = [];
     var attachment = {
-        title: 'Penguins 1 - 2 Sharks',
+        title: 'Penguins 4 - 2 Sharks',
+        title_link: 'http://nhl.com',
         color: '#2f5997',
         fields: [],
+        short: false,
     };
 
     attachment.fields.push({
