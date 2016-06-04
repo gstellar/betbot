@@ -5,7 +5,8 @@ if (!process.env.token) {
   process.exit(1);
 }
 
-var controller = Botkit.slackbot({
+//needs to be global
+controller = Botkit.slackbot({
  debug: false
 });
 
