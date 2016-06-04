@@ -37,6 +37,7 @@ controller.hears(['current'],['direct_message','direct_mention'],function(bot,me
 function getUpcomingGames() {
     var attachments = [];
     var attachment = {
+        fallback: "Upcoming Games",
         title: "Game 4 begins June 6, 2016",
         title_link: 'http://nhl.com',
         color: '#ff6600',
@@ -58,6 +59,7 @@ function getUpcomingGames() {
 function getAllGames() {
     var attachments = [];
     var attachment = {
+        fallback: "All Games",
         title: "Game 4 begins June 6, 2016",
         title_link: 'http://nhl.com',
         color: '#ff6600',
@@ -79,6 +81,7 @@ function getAllGames() {
 function getCurrentGames() {
     var attachments = [];
     var attachment = {
+        fallback: "Current Games",
         title: "Game 4 begins June 6, 2016",
         title_link: 'http://nhl.com',
         color: '#ff6600',
