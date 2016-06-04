@@ -19,11 +19,13 @@ How can you change your bet?
 //     controller.createWebhookEndpoints(webserver);
 // });
 function bet(slashCommand, message) {
-    console.log("bet command");
+    // console.log("bet command");
     
-    slashCommand.replyPublic(message, "1", function() {
-        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    });
+    myBets(slashCommand, message);
+    
+    // slashCommand.replyPublic(message, "1", function() {
+    //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    // });
 }
 
 
@@ -65,8 +67,12 @@ function bet(slashCommand, message) {
 //     bot.reply(message,"You can view your bets using the '/bet' slash command.");
 // });
 
-controller.hears(['bets'],['direct_message','direct_mention'],function(bot,message) {
+controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
 
+    myBets(bot, message);
+});
+
+function myBets(bot, message) {
     var attachments = [];
     var attachment = {
         fallback: "Sharks vs. Penguins",
@@ -102,4 +108,7 @@ controller.hears(['bets'],['direct_message','direct_mention'],function(bot,messa
     },function(err,resp) {
         console.log(err,resp);
     });
-});
+
+}
+
+

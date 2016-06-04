@@ -10,15 +10,48 @@ View leaderboard - username, rank, number of points
 */
 
 function leaderboard(slashCommand, message) {
-    console.log("leaderboard command");
+    // console.log("leaderboard command");
     
-    slashCommand.replyPublic(message, "1", function() {
-        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    });
+    // slashCommand.replyPublic(message, "1", function() {
+    //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    // });
+    showLeaderboard(slashCommand, message);
 }
 
 controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bot,message) {
+    showLeaderboard(bot, message);
+});
 
+controller.hears(['my position'],['direct_message','direct_mention'],function(bot,message) {
+    showPosition(bot, message);
+});
+
+controller.hears(['winner'],['direct_message','direct_mention'],function(bot,message) {
+    winnerMessage(bot, message);
+});
+
+controller.hears(['loser'],['direct_message','direct_mention'],function(bot,message) {
+    loserMessage(bot, message);
+});
+
+function showPosition(bot, message) {
+    var attachments = [];
+    var attachment = {
+        fallback: "Leaderboard position",
+        text: '1. :crown: *STELLA*\t |  5 :watermelon:',
+        mrkdwn_in: ["text"],
+    };
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+}
+
+function showLeaderboard(bot, message) {
     var attachments = [];
     var attachment = {
         fallback: "Leaderboard",
@@ -34,11 +67,9 @@ controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bo
     },function(err,resp) {
         console.log(err,resp);
     });
-});
+}
 
-
-controller.hears(['winner'],['direct_message','direct_mention'],function(bot,message) {
-
+function winnerMessage(bot, message) {
     var attachments = [];
     var attachment = {
         fallback: "Winner",
@@ -53,10 +84,9 @@ controller.hears(['winner'],['direct_message','direct_mention'],function(bot,mes
     },function(err,resp) {
         console.log(err,resp);
     });
-});
+}
 
-controller.hears(['loser'],['direct_message','direct_mention'],function(bot,message) {
-
+function loserMessage(bot, message) {
     var attachments = [];
     var attachment = {
         fallback: "Loser",
@@ -71,4 +101,4 @@ controller.hears(['loser'],['direct_message','direct_mention'],function(bot,mess
     },function(err,resp) {
         console.log(err,resp);
     });
-});
+}
