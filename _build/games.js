@@ -1,8 +1,9 @@
-function games(slashCommand, message) {
+games = function games(slashCommand, message) {
     console.log("games command");
     
-    slashCommand.replyPublic(message, "1", function() {
-        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    //var responseObj = getGames();  
+    slashCommand.replyPublic(message, responseObj , function() {
+        // callback
     });
     
 }
