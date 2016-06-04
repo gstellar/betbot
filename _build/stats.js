@@ -121,7 +121,7 @@ function getScore() {
 function getFavour() {
     var attachments = [];
     var attachment = {
-        fallback: "Stats",
+        fallback: "Favourability",
         title: 'Team Stats',
         text: "*Penguins* favoured by $NUM_POINTS",
         mrkdwn_in: ["text"],
