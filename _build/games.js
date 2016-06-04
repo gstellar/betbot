@@ -7,18 +7,117 @@ Show games that can be bet on - outputs gameID, date, time, team names.
     /games [nhl, nfl, nba]          -   shows the current games for the specified league
     /games [current, upcoming]      -   shows current or upcoming games
 
+    keyword: upcoming               -   shows a list of upcoming games
 */
 console.log("games file");
 
-controller.on('games', function(bot, message) {
-    // check message.command
-    // and maybe message.text...
-    // use EITHER replyPrivate or replyPublic...
-    bot.replyPrivate(message, 'This is a private reply to the ' + message.command + ' slash command!');
+controller.on('slash_command', function (slashCommand, message) {
 
-    // and then continue to use replyPublicDelayed or replyPrivateDelayed
-    bot.replyPublicDelayed(message, 'This is a public reply to the ' + message.command + ' slash command!');
+    console.log("Received command: " + message.command);
+    switch (message.command) {
+        case "/echo":
+            test();
+            break;
+        case "/games":
+            games();
+            break;
+        case "/bet":
+            bet();
+            break;
+        case "/stats":
+            stats();
+            break;
+        case "/leaderboard":
+            leaderboard();
+            break;
 
-    bot.replyPrivateDelayed(message, ':dash:');
+        default:
+            slashCommand.replyPublic(message, "I'm afraid I don't know how to " + message.command + " yet.");
+    }
 
 });
+
+controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
+
+    var attachments = [];
+    var attachment = {
+        title: "Game 4 begins June 6, 2016",
+        title_link: 'http://nhl.com',
+        color: '#ff6600',
+        fields: [],
+        short: false,
+    };
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "Sharks lead the series 2 - 0",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+});
+
+function games() {
+    console.log("games command");
+    
+    slashCommand.replyPublic(message, "1", function() {
+        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    });
+    
+}
+
+function bet() {
+    console.log("bet command");
+    
+    slashCommand.replyPublic(message, "1", function() {
+        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    });
+}
+
+function stats() {
+    console.log("stats command");
+    
+    slashCommand.replyPublic(message, "1", function() {
+        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    });
+}
+
+function leaderboard() {
+    console.log("leaderboard command");
+    
+    slashCommand.replyPublic(message, "1", function() {
+        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    });
+}
+
+function test() {
+    console.log("test command");
+
+    //handle the `/echo` slash command. We might have others assigned to this app too!
+            // The rules are simple: If there is no text following the command, treat it as though they had requested "help"
+            // Otherwise just echo back to them what they sent us.
+
+            // but first, let's make sure the token matches!
+            if (message.token !== process.env.VERIFICATION_TOKEN) return; //just ignore it.
+            console.log("passed token");
+            // if no text was supplied, treat it as a help command
+            if (message.text === "" || message.text === "help") {
+                slashCommand.replyPrivate(message,
+                    "I echo back what you tell me. " +
+                    "Try typing `/echo hello` to see.");
+                return;
+            }
+
+            // If we made it here, just echo what the user typed back at them
+            //TODO You do it!
+            slashCommand.replyPublic(message, "1", function() {
+                slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+            });          
+}
+

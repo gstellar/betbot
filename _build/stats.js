@@ -12,18 +12,23 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
 
     var attachments = [];
     var attachment = {
-        title: 'Penguins 4 - 2 Sharks',
+        title: "19:45 into the 2nd Period",
         title_link: 'http://nhl.com',
-        color: '#2f5997',
-        fields: [],
+        color: '#08ddf1',
+        fields: [
+            {
+                title: "Penguins",
+                value: "1",
+                short: true
+            },
+            {
+                title:"Sharks",
+                value: "2",
+                short: true
+            }
+        ],
         short: false,
     };
-
-    attachment.fields.push({
-        label: 'Field',
-        value: "19:45 into the 2nd Period",
-        short: false,
-    });
 
     attachment.fields.push({
         label: 'Field',
