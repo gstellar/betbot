@@ -35,3 +35,40 @@ controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bo
         console.log(err,resp);
     });
 });
+
+
+controller.hears(['winner'],['direct_message','direct_mention'],function(bot,message) {
+
+    var attachments = [];
+    var attachment = {
+        fallback: "Winner",
+        text: ':trophy: :star2: *YOU WON!!!* :star2: :trophy:',
+        mrkdwn_in: ["text"],
+    };
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+});
+
+controller.hears(['loser'],['direct_message','direct_mention'],function(bot,message) {
+
+    var attachments = [];
+    var attachment = {
+        fallback: "Loser",
+        text: ':thunder_cloud_and_rain: *SORRY, YOU LOST* :( :thunder_cloud_and_rain:',
+        mrkdwn_in: ["text"],
+    };
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+});
