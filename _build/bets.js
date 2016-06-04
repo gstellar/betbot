@@ -52,3 +52,7 @@ controller.on('slash_command', function(bot, message) {
     // bot.replyPrivateDelayed(message, ':dash:');
 
 });
+
+controller.hears(['view bet'],['direct_message','direct_mention','mention'],function(bot,message) {
+    bot.reply(message,"You can view your bets using the '/bet' slash command.");
+});
