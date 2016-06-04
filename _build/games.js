@@ -11,30 +11,41 @@ games = function games(slashCommand, message) {
 // Listening methods
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
     var responseObj = getUpcomingGames(bot, message);
-    bot.reply(message,responseObj, function(err,resp) {
-        console.log(err,resp);
-    });
+    if (responseObj) {
+        bot.reply(message, responseObj, function(err,resp) {
+            console.log(err,resp);
+        });
+    }
+    
 
 });
 
 controller.hears(['all'],['direct_message','direct_mention'],function(bot,message) {
     var responseObj = getAllGames(bot, message);
-    bot.reply(message,responseObj, function(err,resp) {
-        console.log(err,resp);
-    });
+    if (responseObj) {
+        bot.reply(message,responseObj, function(err,resp) {
+            console.log(err,resp);
+        });
+    }
 
 });
 
 controller.hears(['current'],['direct_message','direct_mention'],function(bot,message) {
     var responseObj = getCurrentGames(bot, message);
-    bot.reply(message,responseObj, function(err,resp) {
-        console.log(err,resp);
-    });
+    if (responseObj) {
+        bot.reply(message, responseObj, function(err,resp) {
+            console.log(err,resp);
+        });
+    }
 
 });
 
 // Getters
 function getUpcomingGames() {
+    
+    gbotSportsAPI.getNbaGames().then(function(response) {
+      
+    
     var attachments = [];
     var attachment = {
         title: "Game 4 begins June 6, 2016",
@@ -53,6 +64,11 @@ function getUpcomingGames() {
     attachments.push(attachment);
 
     return {attachments: attachments};
+    
+    }, function(error) {
+        console.error("Failed!", error);
+    });
+        
 }
 
 function getAllGames() {
@@ -96,62 +112,3 @@ function getCurrentGames() {
 
     return {attachments: attachments};
 }
-
-// function games() {
-//     console.log("games command");
-    
-//     slashCommand.replyPublic(message, "1", function() {
-//         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-//     });
-    
-// }
-
-// function bet() {
-//     console.log("bet command");
-    
-//     slashCommand.replyPublic(message, "1", function() {
-//         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-//     });
-// }
-
-// function stats() {
-//     console.log("stats command");
-    
-//     slashCommand.replyPublic(message, "1", function() {
-//         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-//     });
-// }
-
-// function leaderboard() {
-//     console.log("leaderboard command");
-    
-//     slashCommand.replyPublic(message, "1", function() {
-//         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-//     });
-// }
-
-// function test() {
-//     console.log("test command");
-
-//     //handle the `/echo` slash command. We might have others assigned to this app too!
-//             // The rules are simple: If there is no text following the command, treat it as though they had requested "help"
-//             // Otherwise just echo back to them what they sent us.
-
-//             // but first, let's make sure the token matches!
-//             if (message.token !== process.env.VERIFICATION_TOKEN) return; //just ignore it.
-//             console.log("passed token");
-//             // if no text was supplied, treat it as a help command
-//             if (message.text === "" || message.text === "help") {
-//                 slashCommand.replyPrivate(message,
-//                     "I echo back what you tell me. " +
-//                     "Try typing `/echo hello` to see.");
-//                 return;
-//             }
-
-//             // If we made it here, just echo what the user typed back at them
-//             //TODO You do it!
-//             slashCommand.replyPublic(message, "1", function() {
-//                 slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-//             });          
-// }
-
