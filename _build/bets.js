@@ -61,6 +61,45 @@ function bet(slashCommand, message) {
 
 // });
 
-controller.hears(['view bet'],['direct_message','direct_mention','mention'],function(bot,message) {
-    bot.reply(message,"You can view your bets using the '/bet' slash command.");
+// controller.hears(['view bet'],['direct_message','direct_mention','mention'],function(bot,message) {
+//     bot.reply(message,"You can view your bets using the '/bet' slash command.");
+// });
+
+controller.hears(['bets'],['direct_message','direct_mention'],function(bot,message) {
+
+    var attachments = [];
+    var attachment = {
+        fallback: "Sharks vs. Penguins",
+        title: "Sharks vs. Penguins",
+        title_link: 'http://nhl.com',
+        color: '#ff007f',
+        fields: [],
+        short: false,
+    };
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "June 26th 2016 at 7:00 EST",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        title: "You bet: 10 :taco:",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "May the odds be ever in your favour",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
 });
