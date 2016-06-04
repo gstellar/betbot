@@ -56,8 +56,42 @@ function showLeaderboard(bot, message) {
     var attachment = {
         fallback: "Leaderboard",
         title: 'Leaderboard',
-        text: '1. :crown: *STELLA*\t |  5 :watermelon:\n 2. *Alex*\t |  4 :watermelon:\n3. *Eric*\t |  3 :watermelon:\n 4. *Darryl*\t |  3 :watermelon:\n',
-        mrkdwn_in: ["text"],
+        fields: [
+            {
+                title: "1. Stella :crown:",
+                short: true
+            },
+            {
+                value: "5 :watermelon:",
+                short: true
+            },
+            {
+                title:"2. Alex",
+                short: true
+            },
+            {
+                value: "4 :watermelon:",
+                short: true
+            },
+            {
+                title: "3. Darrel",
+                short: true
+            },
+            {
+                value: "2 :watermelon:",
+                short: true
+            },
+            {
+                title:"4. Eric",
+                short: true
+            },
+            {
+                value: "1 :watermelon:",
+                short: true
+            }
+        ],
+        
+        mrkdwn_in: ["fields"],
     };
 
     attachments.push(attachment);
