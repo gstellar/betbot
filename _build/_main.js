@@ -19,15 +19,15 @@ controller.spawn({
 });
 
 // used to store dat to JSON file
-var controller = Botkit.slackbot({
- json_file_store: './gbot/',
-}/*).configureSlackApp(
-  {
-    clientId: process.env.clientId,
-    clientSecret: process.env.clientSecret,
-    scopes: ['bot'],
-  }*/
-);
+// var controller = Botkit.slackbot({
+//  json_file_store: './gbot/',
+// }/*).configureSlackApp(
+//   {
+//     clientId: process.env.clientId,
+//     clientSecret: process.env.clientSecret,
+//     scopes: ['bot'],
+//   }*/
+// );
 
 // just a simple way to make sure we don't
 // connect to the RTM twice for the same team
