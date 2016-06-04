@@ -8,6 +8,51 @@ View scores and stats in real time.
  */
 
 // Get the current score
+function stats(slashCommand, message) {
+    console.log("stats command");
+    
+    var attachments = [];
+    var attachment = {
+        title: "19:45 into the 2nd Period",
+        title_link: 'http://nhl.com',
+        color: '#2f5997',
+        fields: [
+            {
+                title: "Penguins",
+                value: "1",
+                short: true
+            },
+            {
+                title:"Sharks",
+                value: "2",
+                short: true
+            }
+        ],
+        short: false,
+    };
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "Penguins lead the series 2 - 0",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+
+    slashCommand.replyPublic(message, {
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+    
+    
+    // slashCommand.replyPublic(message, "1", function() {
+    //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    // });
+}
+
+
 controller.hears(['score'],['direct_message','direct_mention'],function(bot,message) {
 
     var attachments = [];

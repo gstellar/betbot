@@ -9,100 +9,100 @@ Show games that can be bet on - outputs gameID, date, time, team names.
 
 */
 
-controller.on('slash_command', function (slashCommand, message) {
+// controller.on('slash_command', function (slashCommand, message) {
 
-    console.log("Received command: " + message.command);
-    switch (message.command) {
-        case "/echo":
-            test(slashCommand, message);
-            break;
-        case "/games":
-            games(slashCommand, message);
-            break;
-        case "/bet":
-            bet(slashCommand, message);
-            break;
-        case "/stats":
-            stats(slashCommand, message);
-            break;
-        case "/leaderboard":
-            leaderboard(slashCommand, message);
-            break;
+//     console.log("Received command: " + message.command);
+//     switch (message.command) {
+//         case "/echo":
+//             test(slashCommand, message);
+//             break;
+//         case "/games":
+//             games(slashCommand, message);
+//             break;
+//         case "/bet":
+//             bet(slashCommand, message);
+//             break;
+//         case "/stats":
+//             stats(slashCommand, message);
+//             break;
+//         case "/leaderboard":
+//             leaderboard(slashCommand, message);
+//             break;
 
-        default:
-            slashCommand.replyPublic(message, "I'm afraid I don't know how to " + message.command + " yet.");
-    }
+//         default:
+//             slashCommand.replyPublic(message, "I'm afraid I don't know how to " + message.command + " yet.");
+//     }
 
-});
+// });
 
-function games(slashCommand, message) {
-    console.log("games command");
+// function games(slashCommand, message) {
+//     console.log("games command");
     
-    slashCommand.replyPublic(message, "1", function() {
-        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    });
+//     slashCommand.replyPublic(message, "1", function() {
+//         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+//     });
     
-}
+// }
 
-function bet(slashCommand, message) {
-    console.log("bet command");
+// function bet(slashCommand, message) {
+//     console.log("bet command");
     
-    slashCommand.replyPublic(message, "1", function() {
-        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    });
-}
+//     slashCommand.replyPublic(message, "1", function() {
+//         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+//     });
+// }
 
-function stats(slashCommand, message) {
-    console.log("stats command");
+// function stats(slashCommand, message) {
+//     console.log("stats command");
     
-    var attachments = [];
-    var attachment = {
-        title: "19:45 into the 2nd Period",
-        title_link: 'http://nhl.com',
-        color: '#2f5997',
-        fields: [
-            {
-                title: "Penguins",
-                value: "1",
-                short: true
-            },
-            {
-                title:"Sharks",
-                value: "2",
-                short: true
-            }
-        ],
-        short: false,
-    };
+//     var attachments = [];
+//     var attachment = {
+//         title: "19:45 into the 2nd Period",
+//         title_link: 'http://nhl.com',
+//         color: '#2f5997',
+//         fields: [
+//             {
+//                 title: "Penguins",
+//                 value: "1",
+//                 short: true
+//             },
+//             {
+//                 title:"Sharks",
+//                 value: "2",
+//                 short: true
+//             }
+//         ],
+//         short: false,
+//     };
 
-    attachment.fields.push({
-        label: 'Field',
-        value: "Penguins lead the series 2 - 0",
-        short: false,
-    });
+//     attachment.fields.push({
+//         label: 'Field',
+//         value: "Penguins lead the series 2 - 0",
+//         short: false,
+//     });
 
-    attachments.push(attachment);
+//     attachments.push(attachment);
 
 
-    slashCommand.replyPublic(message, {
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+//     slashCommand.replyPublic(message, {
+//         attachments: attachments,
+//     },function(err,resp) {
+//         console.log(err,resp);
+//     });
     
     
-    // slashCommand.replyPublic(message, "1", function() {
-    //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    // });
-}
+//     // slashCommand.replyPublic(message, "1", function() {
+//     //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+//     // });
+// }
 
-function leaderboard(slashCommand, message) {
-    console.log("leaderboard command");
+// function leaderboard(slashCommand, message) {
+//     console.log("leaderboard command");
     
-    slashCommand.replyPublic(message, "1", function() {
-        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    });
-}
+//     slashCommand.replyPublic(message, "1", function() {
+//         slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+//     });
+// }
 
 function test(slashCommand, message) {
     console.log("test command");

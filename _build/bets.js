@@ -18,8 +18,16 @@ How can you change your bet?
 // controller.setupWebserver(3000, function(err, webserver) {
 //     controller.createWebhookEndpoints(webserver);
 // });
+function bet(slashCommand, message) {
+    console.log("bet command");
+    
+    slashCommand.replyPublic(message, "1", function() {
+        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    });
+}
 
-controller.on('slash_command', function(bot, message) {
+
+// controller.on('slash_command', function(bot, message) {
     // check message.command
     // and maybe message.text...
     // use EITHER replyPrivate or replyPublic...
@@ -47,11 +55,11 @@ controller.on('slash_command', function(bot, message) {
     // }
    
     
-    bot.replyPrivate(message, 'Sorry, the following command is not yet set up: ' + message.command + 'Yell at Stella');
+    // bot.replyPrivate(message, 'Sorry, the following command is not yet set up: ' + message.command + 'Yell at Stella');
     
     // bot.replyPrivateDelayed(message, ':dash:');
 
-});
+// });
 
 controller.hears(['view bet'],['direct_message','direct_mention','mention'],function(bot,message) {
     bot.reply(message,"You can view your bets using the '/bet' slash command.");

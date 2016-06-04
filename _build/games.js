@@ -1,41 +1,11 @@
-/*
-
-Show games that can be bet on - outputs gameID, date, time, team names.
-
-# USAGE
-    /games                          -   shows all games
-    /games [nhl, nfl, nba]          -   shows the current games for the specified league
-    /games [current, upcoming]      -   shows current or upcoming games
-
-    keyword: upcoming               -   shows a list of upcoming games
-*/
-console.log("games file");
-
-controller.on('slash_command', function (slashCommand, message) {
-
-    console.log("Received command: " + message.command);
-    switch (message.command) {
-        case "/echo":
-            test();
-            break;
-        case "/games":
-            games();
-            break;
-        case "/bet":
-            bet();
-            break;
-        case "/stats":
-            stats();
-            break;
-        case "/leaderboard":
-            leaderboard();
-            break;
-
-        default:
-            slashCommand.replyPublic(message, "I'm afraid I don't know how to " + message.command + " yet.");
-    }
-
-});
+function games(slashCommand, message) {
+    console.log("games command");
+    
+    slashCommand.replyPublic(message, "1", function() {
+        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    });
+    
+}
 
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
 

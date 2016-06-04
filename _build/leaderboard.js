@@ -9,4 +9,10 @@ View leaderboard - username, rank, number of points
 
 */
 
-console.log("leaderboard file");
+function leaderboard(slashCommand, message) {
+    console.log("leaderboard command");
+    
+    slashCommand.replyPublic(message, "1", function() {
+        slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
+    });
+}
