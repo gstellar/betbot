@@ -68,8 +68,11 @@ function bet(slashCommand, message) {
 // });
 
 controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
-
     myBets(bot, message);
+});
+
+controller.hears(['all bets'],['direct_message','direct_mention'],function(bot,message) {
+    allBets(bot, message);
 });
 
 function myBets(bot, message) {
@@ -82,6 +85,12 @@ function myBets(bot, message) {
         fields: [],
         short: false,
     };
+    
+    attachment.fields.push({
+        label: 'Field',
+        value: "Game ID: 927",
+        short: false,
+    });
 
     attachment.fields.push({
         label: 'Field',
@@ -91,7 +100,7 @@ function myBets(bot, message) {
 
     attachment.fields.push({
         label: 'Field',
-        title: "You bet: 10 :taco:",
+        title: "You bet: 10 :taco: on the Sharks",
         short: false,
     });
 
@@ -111,4 +120,54 @@ function myBets(bot, message) {
 
 }
 
+function allBets(bot, message) {    
+    var attachments = [];
+    var attachment = {
+        fallback: "Sharks vs. Penguins",
+        title: "Sharks vs. Penguins",
+        title_link: 'http://nhl.com',
+        color: '#ff007f',
+        fields: [],
+        short: false,
+    };
+    
+    attachment.fields.push({
+        label: 'Field',
+        value: "Game ID: 927",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        value: "June 26th 2016 at 7:00 EST",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        title: "You bet: 10 :taco: on the Sharks",
+        short: false,
+    });
+
+    attachment.fields.push({
+        label: 'Field',
+        title: "Alex bet: 10 :taco: on the Sharks",
+        short: false,
+    });
+    
+    attachment.fields.push({
+        label: 'Field',
+        title: "Darryl bet: 10 :taco: on the Penguins",
+        short: false,
+    });
+
+    attachments.push(attachment);
+
+    bot.reply(message,{
+        attachments: attachments,
+    },function(err,resp) {
+        console.log(err,resp);
+    });
+
+}
 
