@@ -21,11 +21,11 @@ How can you change your bet?
 function bet(slashCommand, message) {
     // console.log("bet command");
     
-    myBets(slashCommand, message);
+    // myBets(slashCommand, message);
     
-    // slashCommand.replyPublic(message, "1", function() {
-    //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    // });
+    slashCommand.replyPublic(message, responseObj , function() {
+        // callback
+    });
 }
 
 
@@ -123,6 +123,14 @@ function placeBet(bot, message, gameID, team, bet) {
 }
 
 function myBets(bot, message) {
+    var responseObj = getMyBets(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
+
+}
+
+function getMyBets() {
     var attachments = [];
     var attachment = {
         fallback: "Sharks vs. Penguins",
@@ -158,16 +166,18 @@ function myBets(bot, message) {
     });
 
     attachments.push(attachment);
-
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
-
+    
+    return {attachments: attachments};
 }
 
-function allBets(bot, message) {    
+function allBets() {
+    var responseObj = getAllBets(bot, message);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
+}
+
+function getAllBets() {    
     var attachments = [];
     var attachment = {
         fallback: "Sharks vs. Penguins",
@@ -210,11 +220,7 @@ function allBets(bot, message) {
 
     attachments.push(attachment);
 
-    bot.reply(message,{
-        attachments: attachments,
-    },function(err,resp) {
-        console.log(err,resp);
-    });
+    return {attachments: attachments};
 
 }
 
