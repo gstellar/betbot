@@ -1,5 +1,4 @@
 var request = require('request-promise');
-var $ = require('jquery');
 var accessToken = 'bfb4bec7f982be94e1051ad7b3bef7c9';
 var options = {
   url: 'https://www.stattleship.com/basketball/nba/games',
@@ -14,16 +13,65 @@ var options = {
 var gbotSportsAPI = (function(t){
   return {
     getNbaGames : function(t){
-      request.get(options)
-      .then(function(e){
-        e.games;
-      })
-      .catch(function(e){
-        
-      });
+      return new Promise(function(resolve, reject) {
+        request.get(options).then(function (e) {
+          resolve(e);
+        }).catch(function(e) {
+           reject(Error("Error bruh"));
+        });
+      });      
     }
   };
 })();
 
+games = {};
+ 
+gbotSportsAPI.getNbaGames().then(function(response) {
+  //console.log("Success!", response);  
+  getGameList(response);
+  
+}, function(error) {
+  console.error("Failed!", error);
+});
 
-console.log(gbotSportsAPI.getNbaGames());
+function getGameList(games) {
+  console.log(games);
+}
+
+
+
+// var promise = new Promise(function(resolve, reject) {
+//   // do a thing, possibly async, then…
+//   var gamesPromise = gbotSportsAPI.getNbaGames();
+
+//   if (/* everything turned out fine */) {
+//     resolve("Stuff worked!");
+//   }
+//   else {
+//     reject(Error("It broke"));
+//   }
+// });
+
+// promise.then(function(result) {
+//   console.log(result); // "Stuff worked!"
+// }, function(err) {
+//   console.log(err); // Error: "It broke"
+// });
+
+
+// var gamesPromise = gbotSportsAPI.getNbaGames();
+// console.log(gamesPromise);
+// gamesPromise.then(function(data) {
+//   console.log(data);
+// }); 
+
+// var games;
+// games = gbotSportsAPI.getNbaGames()
+// .then(function(e){
+//   games = e.games;        
+// })
+// .catch(function(e){
+        
+// });
+
+// console.log(games);
