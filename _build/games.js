@@ -14,14 +14,13 @@
 var myCommand = null;
 var myMessage = null;
 
-eventEmitter.on('upcoming-games', function (games) {
-    var responseObj = getUpcomingGames(games);
-    myCommand.replyPublic(myMessage, responseObj, function () { });
-});
+// eventEmitter.on('upcoming-games', function (games) {
+//     var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
+//     bot.reply(myMessage, responseObj, function () { });
+// });
 
 /** Called from slashCommands.js */
 games = function games(slashCommand, message) {
-
     var gameType = message.text;
     myCommand = slashCommand;
     myMessage = message;
@@ -35,13 +34,13 @@ games = function games(slashCommand, message) {
     else {
         slashCommand.replyPublic(message, "Use /games nba or /games nhl to get upcoming games of the league", function () { });
     }
-
 }
 
 // Listening methods
 controller.hears(['upcoming'], ['direct_message', 'direct_mention'], function (bot, message) {
 
-    gbotSportsAPI.getNbaGames();                 
+    gbotSportsAPI.getNbaGames();  
+    myMessage = message;               
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);        
         bot.reply(message, responseObj, function() {});        
@@ -51,6 +50,7 @@ controller.hears(['upcoming'], ['direct_message', 'direct_mention'], function (b
 controller.hears(['all'], ['direct_message', 'direct_mention'], function (bot, message) {
 
     gbotSportsAPI.getNbaGames();                 
+    myMessage = message;               
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);        
         bot.reply(message, responseObj, function() {});        
@@ -59,6 +59,7 @@ controller.hears(['all'], ['direct_message', 'direct_mention'], function (bot, m
 
 controller.hears(['current'], ['direct_message', 'direct_mention'], function (bot, message) {
     gbotSportsAPI.getNbaGames();                 
+    myMessage = message;               
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);        
         bot.reply(message, responseObj, function() {});        
