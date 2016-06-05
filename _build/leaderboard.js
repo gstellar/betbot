@@ -184,13 +184,14 @@ function loserMessage() {
     return { attachments: attachments };
 }
 
-// Call when games are over
+// Call when games are oversssss
 function addPoint(message) {
 
     var id = message.user;
     
     // increment points by 1
-    var points = getPoints(message)++;
+    var points = parseInt(getPoints(message));
+    points++;
     controller.storage.users.save({
         id: id,
         points: points
