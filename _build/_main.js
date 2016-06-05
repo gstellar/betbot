@@ -16,6 +16,7 @@ controller = Botkit.slackbot({
 });
 
 require('./gbot-sports/gbotSportsAPI.js');
+require('./utils.js');
 require('./bot.js');
 require('./bets.js');
 require('./leaderboard.js');

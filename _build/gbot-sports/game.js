@@ -4,6 +4,9 @@ Game = function Game(data, index) {
         self.gameNumber = index + 1;
     if(data.label !== undefined)
         self.label = data.label;
+        var test = (data.label).split('vs');   
+        self.awayTeam = test[0].trim();
+        self.homeTeam = test[1].trim();
     if(data.away_team_score !== undefined)    
         self.awayScore = data.away_team_score;
     if(data.home_team_score !== undefined) 
