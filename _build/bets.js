@@ -25,36 +25,60 @@ function bet(slashCommand, message) {
 
 
 // THIS IS BROKEN
-controller.hears(['place a bet'],['direct_message','direct_mention'],function(bot,message) {
-    var gameID, team, bet;
-    
-    // controller.storage.users.save(user, function(err, id) {
-        bot.startConversation(message, function(err, convo) {
-            if (!err) {
-        convo.ask("What is the game ID?", function(response1, convo){
-            gameID = response1;
-            convo.ask("Which team are you betting on?", function(response2, convo){
-                team = response2;
-                convo.ask("What are you betting?", function(response3, convo){
-                    bet = response3;
-                    convo.next();
-                });
-            });
+// controller.hears(['place a bet'],['direct_message','direct_mention'],function(bot,message) {
+//     var gameID, team, bet;
+//
+//     // controller.storage.users.save(user, function(err, id) {
+//         bot.startConversation(message, function(err, convo) {
+//             if (!err) {
+//         convo.ask("What is the game ID?", function(response1, convo){
+//             gameID = response1;
+//             convo.ask("Which team are you betting on?", function(response2, convo){
+//                 team = response2;
+//                 convo.ask("What are you betting?", function(response3, convo){
+//                     bet = response3;
+//                     convo.next();
+//                 });
+//             });
+//         });
+//             }
+//         });
+//         placeBet(bot, message, gameID, team, bet);
+// });
+
+controller.hears(['place bet'], ['direct_message','direct_mention'], function(bot,message) {
+    askLeague  = function(response, convo) {
+        convo.ask('Which sports league?', function(response, convo) {
+            convo.say('Great choice!');
+            askTeam(response, convo);
+            convo.next();
         });
-            }
+    }
+    askTeam = function(response, convo) {
+        convo.ask('Which team?', function(response, convo) {
+            convo.say("Awesome, that's my favourite.");
+            askBet(response, convo);
+            convo.next();
         });
-        placeBet(bot, message, gameID, team, bet);
+    }
+    askBet = function(response, convo) {
+        convo.ask('How many tacos?', function(response, convo) {
+            convo.say("Bold move. Let's see if it pays off.");
+            convo.next();
+        });
+    }
+
+    bot.startConversation(message, askLeague);
 });
-    
     
 
-controller.hears(['place bet (.*) (.*) (.*)'],['direct_message','direct_mention'],function(bot,message) {
-    var gameID = message.match[1];
-    var team = message.match[2];
-    var bet = message.match[3]
-    bot.reply(message, "Success!");
-    placeBet(bot, message, gameID, team, bet);
-});
+// controller.hears(['place bet (.*) (.*) (.*)'],['direct_message','direct_mention'],function(bot,message) {
+//     var gameID = message.match[1];
+//     var team = message.match[2];
+//     var bet = message.match[3]
+//     bot.reply(message, "Success!");
+//     placeBet(bot, message, gameID, team, bet);
+// });
 
 controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
     myBets(bot, message);

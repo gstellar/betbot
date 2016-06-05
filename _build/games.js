@@ -12,10 +12,10 @@ games = function games(slashCommand, message) {
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
     var games = [
         {
-            gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers", score1:2, score2:1
+            gameNumber:4, date:"June 26, 2016", winningTeam:"Sharks :sshar:", score1:2, score2:1
         },
         {
-            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins", score1:3, score2:2
+            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins :ppens:", score1:3, score2:2
         }
     ];
     
@@ -32,10 +32,10 @@ controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,m
 controller.hears(['all'],['direct_message','direct_mention'],function(bot,message) {
     var games = [
         {
-            gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers", score1:2, score2:1
+            gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers :cavs:", score1:2, score2:1
         },
         {
-            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins", score1:3, score2:2
+            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins :ppens:", score1:3, score2:2
         }
     ];
     
@@ -52,10 +52,10 @@ controller.hears(['current'],['direct_message','direct_mention'],function(bot,me
     
     var games = [
         {
-            gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers", score1:2, score2:1
+            gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers :cavs:", score1:2, score2:1
         },
         {
-            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins", score1:3, score2:2
+            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins :ppens:", score1:3, score2:2
         }
     ];
     
