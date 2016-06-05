@@ -20,14 +20,31 @@ function leaderboard(slashCommand, message) {
 
 // Listening methods
 controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bot,message) {
-    var responseObj = showLeaderboard(bot, message);
+    leaderboard = [
+        {rank:1, name:"stellabot", points:10},
+        {rank:2, name:"alisterdev", points:6},
+        {rank:3, name:"dramos", points:3},
+        {rank:4, name:"blynks", points:1},
+    ];
+    var responseObj = showLeaderboard(leaderboard);
     bot.reply(message,responseObj, function(err,resp) {
         console.log(err,resp);
     });
 });
 
 controller.hears(['my position'],['direct_message','direct_mention'],function(bot,message) {
-    var responseObj = showPosition(bot, message);
+    console.log("STELLA");
+    console.log(bot);
+    console.log("STELLA");
+    
+    leaderboard = [
+        {rank:1, name:"stellabot", points:10},
+        {rank:2, name:"alisterdev", points:6},
+        {rank:3, name:"dramos", points:3},
+        {rank:4, name:"blynks", points:1},
+    ];
+    
+    var responseObj = showPosition(leaderboard, bot);
     bot.reply(message,responseObj, function(err,resp) {
         console.log(err,resp);
     });
@@ -48,12 +65,45 @@ controller.hears(['loser'],['direct_message','direct_mention'],function(bot,mess
 });
 
 // Getters
-function showPosition() {
+function showPosition(leaderboard, bot) {
+   
+    
+    var formattedLeaderboard = [];
+
+    leaderboard.forEach(function(entry) {
+        console.log(bot["identity"]["name"]);
+        if (entry["name"] == bot["identity"]["name"]) {
+            
+        
+        if (entry["rank"] == 1) {
+            formattedLeaderboard.push(
+            {
+                value: entry["rank"] + ". " + entry["name"] + " :crown:",
+                short: true
+            }
+        );
+        }
+        else {
+            formattedLeaderboard.push(
+            {
+                value: entry["rank"] + ". " + entry["name"],
+                short: true
+            }
+        );
+        }
+        formattedLeaderboard.push(
+            {
+                title: entry["points"] + " :watermelon:",
+                short: true
+            }
+        );
+    }
+    });
+    
     var attachments = [];
     var attachment = {
         fallback: "Leaderboard position",
-        text: '1. :crown: *STELLA*\t |  5 :watermelon:',
-        mrkdwn_in: ["text"],
+        fields: formattedLeaderboard,
     };
 
     attachments.push(attachment);
@@ -61,46 +111,41 @@ function showPosition() {
     return {attachments: attachments};
 }
 
-function showLeaderboard() {
+function showLeaderboard(leaderboard) {
+    
+    var formattedLeaderboard = [];
+    
+    leaderboard.forEach(function(entry) {
+        
+        if (entry["rank"] == 1) {
+            formattedLeaderboard.push(
+            {
+                value: entry["rank"] + ". " + entry["name"] + " :crown:",
+                short: true
+            }
+        );
+        }
+        else {
+            formattedLeaderboard.push(
+            {
+                value: entry["rank"] + ". " + entry["name"],
+                short: true
+            }
+        );
+        }
+        formattedLeaderboard.push(
+            {
+                title: entry["points"] + " :watermelon:",
+                short: true
+            }
+        );
+    });
+    
     var attachments = [];
     var attachment = {
         fallback: "Leaderboard",
         title: 'Leaderboard',
-        fields: [
-            {
-                title: "1. Stella :crown:",
-                short: true
-            },
-            {
-                value: "5 :watermelon:",
-                short: true
-            },
-            {
-                title:"2. Alex",
-                short: true
-            },
-            {
-                value: "4 :watermelon:",
-                short: true
-            },
-            {
-                title: "3. Darrel",
-                short: true
-            },
-            {
-                value: "2 :watermelon:",
-                short: true
-            },
-            {
-                title:"4. Eric",
-                short: true
-            },
-            {
-                value: "1 :watermelon:",
-                short: true
-            }
-        ],
-        
+        fields: formattedLeaderboard,
         mrkdwn_in: ["fields"],
     };
 
@@ -109,6 +154,7 @@ function showLeaderboard() {
     return {attachments: attachments};
 }
 
+// NEED TO BE CALLED AT THE END OF EACH GAME
 function winnerMessage() {
     var attachments = [];
     var attachment = {
@@ -122,6 +168,7 @@ function winnerMessage() {
     return {attachments: attachments};
 }
 
+// NEED TO BE CALLED AT THE END OF EACH GAME
 function loserMessage() {
     var attachments = [];
     var attachment = {
