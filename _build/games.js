@@ -75,11 +75,11 @@ controller.hears(['all'], ['direct_message', 'direct_mention'], function (bot, m
     });
 });
 
-controller.hears(['current'], ['direct_message', 'direct_mention'], function (bot, message) {
+controller.hears(['current nba'], ['direct_message', 'direct_mention'], function (bot, message) {
     gbotSportsAPI.getNbaGames();                 
     myMessage = message;               
     eventEmitter.on('upcoming-games', function (games) {
-        var responseObj = gbotUtil.createUpcomingGamesAttachment(games);        
+        var responseObj = gbotUtil.createCurrentGamesAttachment(games);        
         bot.reply(message, responseObj, function() {});        
     });
 });

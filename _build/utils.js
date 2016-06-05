@@ -1,7 +1,8 @@
 gbotUtil = (function () {
     return {
         createScoresAttachment: CreateScoresAttachment,
-        createUpcomingGamesAttachment: createUpcomingGamesAttachment
+        createUpcomingGamesAttachment: CreateUpcomingGamesAttachment,
+        createCurrentGamesAttachment: CreateCurrentGamesAttachment
     };
     // PRIVATE METHODS
     function formatDate(date){
@@ -31,16 +32,19 @@ gbotUtil = (function () {
         return { attachments: attachments };
     }
 
-    function createUpcomingGamesAttachment(games) {
+    function CreateCurrentGamesAttachment(games) {
         var attachments = [];
         var fields = [];
         games.forEach(function (e) {
-            var newDate = Date.parse(formatDate(e.date));
+            var newDate = new Date(Date.parse(formatDate(e.date)));
+            newDate.setHours(0,0,0,0);
+            var newDate1 = new Date();
+            newDate1.setHours(0,0,0,0);
+            
             var today = new Date();
-            var isUpcoming = newDate >= today.getTime();
-            if(isUpcoming){
+            if(newDate.getTime() === newDate1.getTime()){
                 fields.push({
-                    title: "Game " + e.gameNumber + " begins at " + e.date,
+                    title: "Game " + e.gameNumber + " will begin on " + e.date + " at " + e.time,
                     color: '#ff6600',
                     short: false,
                 });
@@ -50,6 +54,32 @@ gbotUtil = (function () {
         var attachment = {
             fallback: "Upcoming Games",
             title: "Upcoming Games",
+            fields: fields,
+            short: false,
+        };
+
+        attachments.push(attachment);
+        return { attachments: attachments };
+    }
+    function CreateUpcomingGamesAttachment(games) {
+        var attachments = [];
+        var fields = [];
+        games.forEach(function (e) {
+            var newDate = Date.parse(formatDate(e.date));
+            var today = new Date();
+            var isUpcoming = newDate >= today.getTime();
+            if(isUpcoming){
+                fields.push({
+                    title: "Game " + e.gameNumber + " begins today at " + e.date,
+                    color: '#ff6600',
+                    short: false,
+                });
+            }
+        });
+
+        var attachment = {
+            fallback: "Upcoming Games",
+            title: "Current",
             fields: fields,
             short: false,
         };
