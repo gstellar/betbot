@@ -7,30 +7,17 @@
  all                            -   Shows all games.
  current                        -   Shows current games.
 
- */
-/**
- * Called from slashCommands.js
- */
-games = function games(slashCommand, message) {
-    // Get games from API                 
-    gbotSportsAPI.getNbaGames();
+*/
 
-    // Listen to event emitted by getNbaGames()
-    eventEmitter.on('upcoming-games', function (games) {
-        var responseObj = getUpcomingGames(games);
-        slashCommand.replyPublic(message, responseObj, function () { });
-    });
+// Listen for upcoming events
 
-    // Listen for upcoming events
+var myCommand = null;
+var myMessage = null;
 
-    var myCommand = null;
-    var myMessage = null;
-
-    eventEmitter.on('upcoming-games', function (games) {
-        var responseObj = getUpcomingGames(games);
-        myCommand.replyPublic(myMessage, responseObj, function () { });
-    });
-}
+eventEmitter.on('upcoming-games', function (games) {
+    var responseObj = getUpcomingGames(games);
+    myCommand.replyPublic(myMessage, responseObj, function () { });
+});
 
 /** Called from slashCommands.js */
 games = function games(slashCommand, message) {
