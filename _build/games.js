@@ -1,16 +1,22 @@
-games = function games(slashCommand, message) {
-    console.log("games command");
-    
-    //var responseObj = getGames();  
-    slashCommand.replyPublic(message, responseObj , function() {
-        // callback
+
+/**
+ * Called from slashCommands.js
+ */
+games = function games(slashCommand, message) {    
+    // Get games from API                 
+    gbotSportsAPI.getNbaGames();                 
+                 
+    // Listen to event emitted by getNbaGames()
+    eventEmitter.on('upcoming-games', function (gameObject) {                
+        // Define a response object based on data from API 
+        var responseObj = getUpcomingGames(gameObject);        
+        slashCommand.replyPublic(message, responseObj, function() {});        
     });
-    
 }
 
 // Listening methods
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
-    var responseObj = getUpcomingGames(bot, message);
+    var responseObj = getUpcomingGames();
     if (responseObj) {
         bot.reply(message, responseObj, function(err,resp) {
             console.log(err,resp);
@@ -21,7 +27,7 @@ controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,m
 });
 
 controller.hears(['all'],['direct_message','direct_mention'],function(bot,message) {
-    var responseObj = getAllGames(bot, message);
+    var responseObj = getAllGames();
     if (responseObj) {
         bot.reply(message,responseObj, function(err,resp) {
             console.log(err,resp);
@@ -31,7 +37,7 @@ controller.hears(['all'],['direct_message','direct_mention'],function(bot,messag
 });
 
 controller.hears(['current'],['direct_message','direct_mention'],function(bot,message) {
-    var responseObj = getCurrentGames(bot, message);
+    var responseObj = getCurrentGames();
     if (responseObj) {
         bot.reply(message, responseObj, function(err,resp) {
             console.log(err,resp);
@@ -41,11 +47,11 @@ controller.hears(['current'],['direct_message','direct_mention'],function(bot,me
 });
 
 // Getters
-function getUpcomingGames() {
-    
-    gbotSportsAPI.getNbaGames().then(function(response) {
-      
-    
+function getUpcomingGames(gameObject) {
+                
+    console.log("Extract some data from here: ");
+    console.log(gameObject);                
+                
     var attachments = [];
     var attachment = {
         fallback: "Upcoming Games",
@@ -64,12 +70,7 @@ function getUpcomingGames() {
 
     attachments.push(attachment);
 
-    return {attachments: attachments};
-    
-    }, function(error) {
-        console.error("Failed!", error);
-    });
-        
+    return {attachments: attachments};        
 }
 
 function getAllGames() {

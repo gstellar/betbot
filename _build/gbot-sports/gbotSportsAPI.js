@@ -15,6 +15,9 @@ gbotSportsAPI = (function(t){
     getNbaGames : function(t){
       return new Promise(function(resolve, reject) {
         request.get(options).then(function (e) {
+          
+          eventEmitter.emit('upcoming-games', e);
+                    
           resolve(e);
         }).catch(function(e) {
            reject(Error("Error bruh"));
