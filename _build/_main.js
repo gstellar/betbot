@@ -8,7 +8,8 @@ eventEmitter = new events.EventEmitter();
 
 
 controller = Botkit.slackbot({
-    debug: false
+    debug: false,
+    json_file_store: 'stelladb'
 });
 
 require('./gbot-sports/gbotSportsAPI.js');

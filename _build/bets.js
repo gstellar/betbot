@@ -38,7 +38,16 @@ function bet(slashCommand, message) {
 controller.hears(['place bet'], ['direct_message','direct_mention'], function(bot,message) {
     askLeague  = function(response, convo) {
         convo.ask('Which sports league?', function(response, convo) {
-            convo.say('Great choice!');
+            console.log(response);
+            
+            var league = response.text.toLowerCase();            
+            controller.storage.users.save({
+                id: response.user, 
+                league: league
+            }, function(err) { 
+                console.log(err);
+             });
+            convo.say('Great choice!');            
             askTeam(response, convo);
             convo.next();
         });
@@ -67,7 +76,7 @@ controller.hears(['my bet'],['direct_message','direct_mention'],function(bot,mes
         {name:"alisterdev", team:"Flamingos", otherTeam:"Baluga Whales", gameID:2, bet:10},
     ];
     
-    var responseObj = getMyBets(bets, bot);
+    var responseObj = getMyBets(bets, bot, message);
     bot.reply(message,responseObj, function(err,resp) {
         console.log(err,resp);
     });
@@ -105,19 +114,27 @@ function placeBet(bot, message, gameID, team, bet) {
 }
 
 
-function getMyBets(bets, bot) {
+function getMyBets(bets, bot, message) {
+    
     var attachments = [];
     var attachment = {
         fallback: "My Bets",
         title: "My Bets",
         fields: [],
     };
+        
+    var id = message.user;
     
-    bets.forEach(function(bet) {
+    controller.storage.users.get(id, function(err, data) {
+        console.log('get bets');        
+        
+        
+        
+     bets.forEach(function(bet) {
         if (bet.name == bot["identity"]["name"]) {
         
     attachment.fields.push({
-        title: bet.team + " vs. " + bet.otherTeam,
+        title: "League: " + data.league + "\n" + bet.team + " vs. " + bet.otherTeam,
         title_link: 'http://nhl.com',
         label: 'Field',
         value: "Game ID: " + bet.gameID,
@@ -146,7 +163,13 @@ function getMyBets(bets, bot) {
 
     attachments.push(attachment);
     
+    
+        
+        
+    });
+    
     return {attachments: attachments};
+
 }
 
 function getAllBets() {    
