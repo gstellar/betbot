@@ -67,7 +67,7 @@ function showPosition(leaderboard, bot) {
     var formattedLeaderboard = [];
 
     leaderboard.forEach(function(entry) {
-        console.log(bot["identity"]["name"]);
+
         if (entry["name"] == bot["identity"]["name"]) {
             
         
