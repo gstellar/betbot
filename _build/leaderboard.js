@@ -33,10 +33,6 @@ controller.hears(['leaderboard'],['direct_message','direct_mention'],function(bo
 });
 
 controller.hears(['my position'],['direct_message','direct_mention'],function(bot,message) {
-    console.log("STELLA");
-    console.log(bot);
-    console.log("STELLA");
-    
     leaderboard = [
         {rank:1, name:"stellabot", points:10},
         {rank:2, name:"alisterdev", points:6},
