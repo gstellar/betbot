@@ -13,11 +13,6 @@ How can you change your bet?
 
 */
 
-// console.log("bets file");
-
-// controller.setupWebserver(3000, function(err, webserver) {
-//     controller.createWebhookEndpoints(webserver);
-// });
 function bet(slashCommand, message) {
     // console.log("bet command");
     
@@ -29,65 +24,61 @@ function bet(slashCommand, message) {
 }
 
 
-// controller.on('slash_command', function(bot, message) {
-    // check message.command
-    // and maybe message.text...
-    // use EITHER replyPrivate or replyPublic...
-    
-    // If no args are given and the user has at least one bet placed,
-    // list all user's bets
-    // if ((numberBets > 0 && args == 0) || args[1] == 'mine') {
-        // bot.replyPrivate(message, 'Here are your bets: ' + bets);
-    // }
-    // If no args are given and user has no bets,
-    // prompt user to make a bet
-    // else if (numberBets == 0 && (args == 0 || args[1] == 'mine')) {
-        // bot.replyPrivate(message, 'You do not have any active bets. Do you want to make a bet? Use /bet [gameID] [team name]');
-    // }
-    // else if (args[1] == 'all') {
-        // bot.replyPrivate(message, 'Here are all the active bets: ' + bets);
-    // }
-    // else {
-            // if (check ID and team name) {
-            // place bet
-            // }
-            // else {
-            //     bot.replyPrivate(message, 'Sorry, that game ID and team name combination is not correct' + bets);
-            // }
-    // }
-   
-    
-    // bot.replyPrivate(message, 'Sorry, the following command is not yet set up: ' + message.command + 'Yell at Stella');
-    
-    // bot.replyPrivateDelayed(message, ':dash:');
-
+// THIS IS BROKEN
+// controller.hears(['place a bet'],['direct_message','direct_mention'],function(bot,message) {
+//     var gameID, team, bet;
+//
+//     // controller.storage.users.save(user, function(err, id) {
+//         bot.startConversation(message, function(err, convo) {
+//             if (!err) {
+//         convo.ask("What is the game ID?", function(response1, convo){
+//             gameID = response1;
+//             convo.ask("Which team are you betting on?", function(response2, convo){
+//                 team = response2;
+//                 convo.ask("What are you betting?", function(response3, convo){
+//                     bet = response3;
+//                     convo.next();
+//                 });
+//             });
+//         });
+//             }
+//         });
+//         placeBet(bot, message, gameID, team, bet);
 // });
 
-// controller.hears(['view bet'],['direct_message','direct_mention','mention'],function(bot,message) {
-//     bot.reply(message,"You can view your bets using the '/bet' slash command.");
-// });
+controller.hears(['place bet'], ['direct_message','direct_mention'], function(bot,message) {
+    askLeague  = function(response, convo) {
+        convo.ask('Which sports league?', function(response, convo) {
+            convo.say('Great choice!');
+            askTeam(response, convo);
+            convo.next();
+        });
+    }
+    askTeam = function(response, convo) {
+        convo.ask('Which team?', function(response, convo) {
+            convo.say("Awesome, that's my favourite.");
+            askBet(response, convo);
+            convo.next();
+        });
+    }
+    askBet = function(response, convo) {
+        convo.ask('How many tacos?', function(response, convo) {
+            convo.say("Bold move. Let's see if it pays off.");
+            convo.next();
+        });
+    }
 
-controller.hears(['place a bet'],['direct_message','direct_mention'],function(bot,message) {
-    // controller.storage.users.save(user, function(err, id) {
-        bot.reply(message,"What is the game ID?");
-        // controller.storage.users.save(user, function(err, id) {
-            bot.reply(message,"Which team are you betting on?");
-            // controller.storage.users.save(user, function(err, id) {
-                bot.reply(message,"What are you betting?");
-            // });
-        // });
-    // });
+    bot.startConversation(message, askLeague);
+});
     
-    // placeBet(bot, message, ID, team, bet);
-});
 
-controller.hears(['place bet (.*) (.*) (.*)'],['direct_message','direct_mention'],function(bot,message) {
-    var gameID = message.match[1];
-    var team = message.match[2];
-    var bet = message.match[3]
-    bot.reply(message, "Success!");
-    placeBet(bot, message, gameID, team, bet);
-});
+// controller.hears(['place bet (.*) (.*) (.*)'],['direct_message','direct_mention'],function(bot,message) {
+//     var gameID = message.match[1];
+//     var team = message.match[2];
+//     var bet = message.match[3]
+//     bot.reply(message, "Success!");
+//     placeBet(bot, message, gameID, team, bet);
+// });
 
 controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
     myBets(bot, message);

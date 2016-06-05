@@ -1,7 +1,7 @@
 var request = require('request-promise');
+require('./game.js');
 var accessToken = 'bfb4bec7f982be94e1051ad7b3bef7c9';
 var options = {
-  url: 'https://www.stattleship.com/basketball/nba/games',
   headers: {
     'Authorization': 'Token token=bfb4bec7f982be94e1051ad7b3bef7c9',
     'Content-Type': 'application/json',
@@ -10,20 +10,50 @@ var options = {
   json: true
 };
 
-gbotSportsAPI = (function(t){
+gbotSportsAPI = (function () {
   return {
-    getNbaGames : function(t){
-      return new Promise(function(resolve, reject) {
-        request.get(options).then(function (e) {
-          
-          eventEmitter.emit('upcoming-games', e);
-                    
-          resolve(e);
-        }).catch(function(e) {
-           reject(Error("Error bruh"));
-        });
-      });      
+    getNbaGames: GetNBAGames,
+    getNhlGames: GetNHLGames,
+    getAllGames: function () {
+      //TODO: Get All 
     }
   };
+
+  function GetNBAGames() {
+    options.url = 'https://www.stattleship.com/basketball/nba/games';
+    return new Promise(function (resolve, reject) {
+      request.get(options).then(function (e) {
+        eventEmitter.emit('upcoming-games', populateGames(e.games));
+        resolve(populateGames(e.games));
+      }).catch(function (e) {
+        reject(Error("Unable to fetch data: " + e));
+      });
+    });
+  }
+
+  function GetNHLGames() {
+    options.url = 'https://www.stattleship.com/hockey/nhl/games';
+    return new Promise(function (resolve, reject) {
+      request.get(options).then(function (e) {
+        eventEmitter.emit('upcoming-games', populateGames(e.games));
+        resolve(populateGames(e.games));
+      }).catch(function (e) {
+        reject(Error("Unable to fetch data: " + e));
+      });
+    });
+  }
+  
+  function populateGames(games){
+    var result = [];
+    games.reverse();
+    games.forEach((element, index) => {
+      var game = new Game(element, index);
+      result.push(game);
+    });
+    console.log(result);
+    return result;
+  }
+
 })();
 
+gbotSportsAPI.getNbaGames();
