@@ -96,7 +96,7 @@ controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (
     bot.startConversation(message, askLeague);
 });
 
-controller.hears(['my bet'], ['direct_message', 'direct_mention'], function (bot, message) {
+controller.hears(['my bet', 'my bets'], ['direct_message', 'direct_mention'], function (bot, message) {
     bets = [
         { name: "stellabot", team: "Panthers", otherTeam: "Penguins", gameID: 12, bet: 10 },
         { name: "alisterdev", team: "Flamingos", otherTeam: "Baluga Whales", gameID: 2, bet: 10 },
