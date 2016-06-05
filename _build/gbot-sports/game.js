@@ -1,5 +1,7 @@
 Game = function Game(data, index) {
     var self = this;
+    if(data.id !== undefined)
+        self.gameID = data.id.substr((data.id).length - 4);;
     if(index !== undefined)
         self.gameNumber = index + 1;
     if(data.label !== undefined)

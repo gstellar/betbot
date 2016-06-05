@@ -2,8 +2,10 @@
 
 View scores and stats in real time.
 
-#Usage
-    Call score on the bot to see the current status on your bets
+# USAGE
+     odds                       -   Shows your favourability
+     score                      -   Shows the score
+     stats                      -   Shows your odds
 
  */
 

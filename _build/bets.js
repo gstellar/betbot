@@ -7,10 +7,10 @@ Should you be able to revoke bets after placing?
 How can you change your bet? 
 
 # USAGE
-    /bet                        -   shows your bets
-    /bet [all]                  -   shows all bets
-    /bet [gameID] [team name]   -   place your bet
-
+    bet                         -   Shows help slash command
+    place bet                   -   Allows player to choose a league, team and betting amount
+    my bet                      -   Shows your bet
+    all bets                    -   Shows all bets
 */
 
 function bet(slashCommand, message) {
@@ -49,7 +49,7 @@ controller.hears(['place bet'], ['direct_message','direct_mention'], function(bo
 });
   
 
-controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
+controller.hears(['my bet'],['direct_message','direct_mention'],function(bot,message) {
     bets = [
         {name:"stellabot", team:"Panthers", otherTeam:"Penguins", gameID:12, bet:10},
         {name:"alisterdev", team:"Flamingos", otherTeam:"Baluga Whales", gameID:2, bet:10},
