@@ -2,8 +2,10 @@
 
 View scores and stats in real time.
 
-#Usage
-    Call score on the bot to see the current status on your bets
+# USAGE
+     odds                       -   Shows your favourability
+     score                      -   Shows the score
+     stats                      -   Shows your odds
 
  */
 
@@ -28,7 +30,7 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
     });
 });
 
-controller.hears(['favoured by', 'stats'],['direct_message','direct_mention'],function(bot,message) {
+controller.hears(['odds', 'stats'],['direct_message','direct_mention'],function(bot,message) {
     var game = {favouredTeam:"Penguins :ppens:", favouredBy:10};
     var responseObj = getFavourability(game);
     bot.reply(message,responseObj, function(err,resp) {
@@ -44,18 +46,18 @@ function getScore(game) {
     var attachments = [];
     var attachment = {
         fallback: "Score",
-        title: game["date"],
+        title: game.date,
         title_link: 'http://nhl.com',
         color: '#08ddf1',
         fields: [
             {
-                title: game["favouredTeam"],
-                value: game["score1"],
+                title: game.favouredTeam,
+                value: game.score1,
                 short: true
             },
             {
-                title:game["otherTeam"],
-                value: game["score2"],
+                title:game.otherTeam,
+                value: game.score2,
                 short: true
             }
         ],
@@ -64,7 +66,7 @@ function getScore(game) {
 
     attachment.fields.push({
         label: 'Field',
-        value: game["winningTeam"] + " lead the series",
+        value: game.winningTeam + " lead the series",
         short: false,
     });
 
@@ -78,7 +80,7 @@ function getFavourability(game) {
     var attachment = {
         fallback: "Favourability",
         title: 'Team Stats',
-        text: "*" + game["favouredTeam"] + "* favoured by " + game["favouredBy"],
+        text: "*" + game.favouredTeam + "* favoured by " + game.favouredBy,
         mrkdwn_in: ["text"],
     };
 

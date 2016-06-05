@@ -139,7 +139,7 @@ function getCurrentGames(games) {
     games.forEach(function(game) {
         if (game["date"] == today) { // NEED TO DECIDE WHEN "CURRENT" IS
         attachment.fields.push({
-            title: "Game " + game["gameNumber"] + " begins " + game["date"],
+            title: "Game " + game.gameNumber + " begins " + game.date,
             title_link: 'http://nhl.com',
             color: '#ff6600',
             short: false,
@@ -147,7 +147,7 @@ function getCurrentGames(games) {
 
         attachment.fields.push({
             label: 'Field',
-            value: game["winningTeam"] + " lead the series " + game["score1"] + " - " + game["score2"],
+            value: game.winningTeam + " lead the series " + game.score1 + " - " + game.score2,
             short: false,
         });
         }
@@ -168,7 +168,7 @@ function getAllGames(games) {
     }
     games.forEach(function(game) {
         attachment.fields.push({
-            title: "Game " + game["gameNumber"] + " begins " + game["date"],
+            title: "Game " + game.gameNumber + " begins " + game.date,
             title_link: 'http://nhl.com',
             color: '#ff6600',
             short: false,
@@ -176,7 +176,7 @@ function getAllGames(games) {
 
         attachment.fields.push({
             label: 'Field',
-            value: game["winningTeam"] + " lead the series " + game["score1"] + " - " + game["score2"],
+            value: game.winningTeam + " lead the series " + game.score1 + " - " + game.score2,
             short: false,
         });
     }, this);
