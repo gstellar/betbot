@@ -38,8 +38,7 @@ function bet(slashCommand, message) {
 controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (bot, message) {
     askLeague = function (response, convo) {
         convo.ask('Which sports league?', function (response, convo) {
-            console.log(response.text);
-
+            
             var name = bot["identity"]["name"];
             controller.storage.users.save({
                 id: response.user,
@@ -63,7 +62,8 @@ controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (
     }
     askTeam = function (response, convo) {
         convo.ask('Which team?', function (response, convo) {
-            console.log(response.text);
+            
+            
             var team = response.text.toLowerCase();
             controller.storage.users.save({
                 id: response.user,
@@ -79,7 +79,7 @@ controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (
     }
     askBet = function (response, convo) {
         convo.ask('How many tacos?', function (response, convo) {
-            console.log(response.text);
+            
             var bet = response.text.toLowerCase();
             controller.storage.users.save({
                 id: response.user,
@@ -90,7 +90,7 @@ controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (
 
             convo.say("Bold move. Let's see if it pays off.");
             convo.next();
-        });
+        }); 
     }
 
     bot.startConversation(message, askLeague);
@@ -157,7 +157,7 @@ function getMyBets(bets, bot, message) {
             if (data.name == bot["identity"]["name"]) {
 
                 attachment.fields.push({
-                    title: "League: " + data.league,// + "\n" + bet.team + " vs. " + bet.otherTeam,
+                    title: "League: " + data.league + "\n\n" + bet.team + " vs. " + bet.otherTeam,
                     title_link: 'http://nhl.com',
                     label: 'Field',
                     // value: "Game ID: " + bet.gameID,
