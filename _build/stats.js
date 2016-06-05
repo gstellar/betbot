@@ -21,7 +21,7 @@ function stats(slashCommand, message) {
 
 // Listening methods
 controller.hears(['score'],['direct_message','direct_mention'],function(bot,message) {
-    var game = {date:"June 26, 2016", favouredTeam:"Penguins", otherTeam:"Panthers", favouredBy:10, winningTeam:"Penguins", score1:5, score2:3};
+    var game = {date:"June 26, 2016", favouredTeam:"Penguins :ppens:", otherTeam:"Panthers :cavs:", favouredBy:10, winningTeam:"Penguins :ppens:", score1:5, score2:3};
     var responseObj = getScore(game);
     bot.reply(message,responseObj, function(err,resp) {
         console.log(err,resp);
@@ -29,7 +29,7 @@ controller.hears(['score'],['direct_message','direct_mention'],function(bot,mess
 });
 
 controller.hears(['favoured by', 'stats'],['direct_message','direct_mention'],function(bot,message) {
-    var game = {favouredTeam:"Penguins", favouredBy:10};
+    var game = {favouredTeam:"Penguins :ppens:", favouredBy:10};
     var responseObj = getFavourability(game);
     bot.reply(message,responseObj, function(err,resp) {
         console.log(err,resp);
