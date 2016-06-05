@@ -1,4 +1,3 @@
-
 /*
 
 Show games that can be bet on - outputs gameID, date, time, team names.
@@ -10,7 +9,7 @@ Show games that can be bet on - outputs gameID, date, time, team names.
 
 */
 
-controller.setupWebserver(8657, function(err, webserver) {
+controller.setupWebserver(8657, function (err, webserver) {
     controller.createWebhookEndpoints(webserver);
 });
 
@@ -33,10 +32,7 @@ controller.on('slash_command', function (slashCommand, message) {
         case "/leaderboard":
             leaderboard(slashCommand, message);
             break;
-
         default:
             slashCommand.replyPublic(message, "I'm afraid I don't know how to " + message.command + " yet.");
     }
-
 });
-
