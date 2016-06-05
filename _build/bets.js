@@ -102,25 +102,25 @@ function getMyBets(bets, bot) {
     };
     
     bets.forEach(function(bet) {
-        if (bet["name"] == bot["identity"]["name"]) {
+        if (bet.name == bot["identity"]["name"]) {
         
     attachment.fields.push({
-        title: bet["team"] + " vs. " + bet["otherTeam"],
+        title: bet.team + " vs. " + bet.otherTeam,
         title_link: 'http://nhl.com',
         label: 'Field',
-        value: "Game ID: " + bet["gameID"],
+        value: "Game ID: " + bet.gameID,
         short: false,
     });
 
     attachment.fields.push({
         label: 'Field',
-        value: bet["date"],
+        value: bet.date,
         short: false,
     });
 
     attachment.fields.push({
         label: 'Field',
-        title: "You bet: " + bet["bet"] + " :taco: on the " + bet["team"],
+        title: "You bet: " + bet.bet + " :taco: on the " + bet.team,
         short: false,
     });
         }
@@ -147,10 +147,10 @@ function getAllBets() {
     
     bets.forEach(function(bet) {
     attachment.fields.push({
-        title: bet["team"] + " vs. " + bet["otherTeam"],
+        title: bet.team + " vs. " + bet.otherTeam,
         title_link: 'http://nhl.com',
         label: 'Field',
-        value: "Game ID: " + bet["gameID"],
+        value: "Game ID: " + bet.gameID,
         short: false,
     });
 
@@ -162,7 +162,7 @@ function getAllBets() {
 
     attachment.fields.push({
         label: 'Field',
-        title: "You bet: " + bet["bet"] + " :taco: on the " + bet["team"],
+        title: "You bet: " + bet.bet + " :taco: on the " + bet.team,
         short: false,
     });
     }, this);
