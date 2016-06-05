@@ -12,13 +12,10 @@ View leaderboard - username, rank, number of points
 
 */
 
-var myCommand = null;
-var myMessage = null;
+
 
 function leaderboard(slashCommand, message) {
     var gameType = message.text;
-    myCommand = slashCommand;
-    myMessage = message;
 
     if (gameType == "mine") {
         showPosition(slashCommand, message);

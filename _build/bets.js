@@ -2,15 +2,6 @@
 
 View or place bets
 
-# QUESTIONS
-Should you be able to revoke bets after placing?
-How can you change your bet? 
-
-# USAGE
-    bet                         -   Shows help slash command
-    place bet                   -   Allows player to choose a league, team and betting amount
-    my bet                      -   Shows your bet
-    all bets                    -   Shows all bets
 */
 
 function bet(slashCommand, message) {
@@ -55,7 +46,7 @@ controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (
     }
     askTeam = function (response, convo) {
         convo.ask('Which team?', function (response, convo) {                        
-            team = response.text.toLowerCase();         
+            team = response.text;         
             convo.say("Awesome, that's my favourite.");
             askBet(response, convo);
             convo.next();
@@ -85,8 +76,8 @@ controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (
 
 controller.hears(['my bet', 'my bets'], ['direct_message', 'direct_mention'], function (bot, message) {
     bets = [
-        { name: "stellabot", team: "Panthers", otherTeam: "Penguins", gameID: 12, bet: 10 },
-        { name: "alisterdev", team: "Flamingos", otherTeam: "Baluga Whales", gameID: 2, bet: 10 },
+        { name: "alisterdev", team: ":sharks: Sharks", otherTeam: ":penguins: Penguins", gameID: 12, bet: 10 }
+        // { name: "alisterdev", team: "Flamingos", otherTeam: "Baluga Whales", gameID: 2, bet: 10 },
     ];
 
     var responseObj = getMyBets(bets, bot, message);
@@ -97,8 +88,8 @@ controller.hears(['my bet', 'my bets'], ['direct_message', 'direct_mention'], fu
 
 controller.hears(['all bets'], ['direct_message', 'direct_mention'], function (bot, message) {
     bets = [
-        { name: "stellarxo", team: "Panthers", otherTeam: "Penguins", gameID: 12, bet: 10 },
-        { name: "alisterdev", team: "Flamingos", otherTeam: "Baluga Whales", gameID: 2, bet: 10 },
+        { name: "alisterdev", team: ":sharks: Sharks", otherTeam: ":penguins: Penguins", gameID: 12, bet: 10 }
+        // { name: "alisterdev", team: "Flamingos", otherTeam: "Baluga Whales", gameID: 2, bet: 10 },
     ];
 
     var responseObj = getAllBets(bets);
@@ -137,31 +128,29 @@ function getMyBets(bets, bot, message) {
     var id = message.user;
 
     controller.storage.users.get(id, function (err, data) { 
-        console.log('get bets');
-        console.log(data);
-
+        
         bets.forEach(function (bet) {
             if (data.name == bot["identity"]["name"]) {
 
                 attachment.fields.push({
-                    title: "League: " + data.league + "\n\n" + bet.team + " vs. " + bet.otherTeam,
+                    title: "League: " + data.league.toUpperCase(),
                     title_link: 'http://nhl.com',
                     label: 'Field',
-                    // value: "Game ID: " + bet.gameID,
+                    value:  bet.team + " vs. " + bet.otherTeam,
                     short: false,
                 });
 
                 attachment.fields.push({
                     label: 'Field',
-                    value: bet.date,
+                    value: "You bet: " + data.bet + " :taco: on the " + ":" + data.team.toLowerCase() + ":" + data.team,
                     short: false,
                 });
 
-                attachment.fields.push({
-                    label: 'Field',
-                    title: "You bet: " + data.bet + " :taco: on the " + data.team,
-                    short: false,
-                });
+                // attachment.fields.push({
+                //     label: 'Field',
+                //     title: "You bet: " + data.bet + " :taco: on the " + data.team,
+                //     short: false,
+                // });
             }
         }, this);
 

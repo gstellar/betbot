@@ -11,20 +11,10 @@
 
 // Listen for upcoming events
 
-var myCommand = null;
-var myMessage = null;
-
-// eventEmitter.on('upcoming-games', function (games) {
-//     var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-//     bot.reply(myMessage, responseObj, function () { });
-// });
-
 /** Called from slashCommands.js */
 games = function games(slashCommand, message) {
     var gameType = message.text;
-    myCommand = slashCommand;
-    myMessage = message;
-
+    
     if (gameType == "nba") {
         gbotSportsAPI.getNbaGames();
     }
@@ -38,7 +28,6 @@ games = function games(slashCommand, message) {
 
 // Listening methods
 controller.hears(['upcoming'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
-    console.log("1 " + message.text);
     gbotSportsAPI.getNbaGames();
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
