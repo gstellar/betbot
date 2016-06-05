@@ -38,15 +38,24 @@ function bet(slashCommand, message) {
 controller.hears(['place bet'], ['direct_message','direct_mention'], function(bot,message) {
     askLeague  = function(response, convo) {
         convo.ask('Which sports league?', function(response, convo) {
-            console.log(response);
+            console.log(response.text);
+            
+            var name = bot["identity"]["name"];            
+            controller.storage.users.save({
+                id: response.user, 
+                name: name
+            }, function(err) { 
+                console.log(err);
+             });
             
             var league = response.text.toLowerCase();            
             controller.storage.users.save({
                 id: response.user, 
-                league: league
+                league: league  
             }, function(err) { 
                 console.log(err);
              });
+             
             convo.say('Great choice!');            
             askTeam(response, convo);
             convo.next();
@@ -54,6 +63,15 @@ controller.hears(['place bet'], ['direct_message','direct_mention'], function(bo
     }
     askTeam = function(response, convo) {
         convo.ask('Which team?', function(response, convo) {
+            console.log(response.text);
+            var team = response.text.toLowerCase();            
+            controller.storage.users.save({
+                id: response.user, 
+                team: team 
+            }, function(err) { 
+                console.log(err);
+             });
+      
             convo.say("Awesome, that's my favourite.");
             askBet(response, convo);
             convo.next();
@@ -61,6 +79,15 @@ controller.hears(['place bet'], ['direct_message','direct_mention'], function(bo
     }
     askBet = function(response, convo) {
         convo.ask('How many tacos?', function(response, convo) {
+            console.log(response.text);
+            var bet = response.text.toLowerCase();            
+            controller.storage.users.save({
+                id: response.user, 
+                bet: bet
+            }, function(err) { 
+                console.log(err);
+             });
+      
             convo.say("Bold move. Let's see if it pays off.");
             convo.next();
         });
@@ -84,7 +111,7 @@ controller.hears(['my bet'],['direct_message','direct_mention'],function(bot,mes
 
 controller.hears(['all bets'],['direct_message','direct_mention'],function(bot,message) {
     bets = [
-        {name:"stellabot", team:"Panthers", otherTeam:"Penguins", gameID:12, bet:10},
+        {name:"stellarxo", team:"Panthers", otherTeam:"Penguins", gameID:12, bet:10},
         {name:"alisterdev", team:"Flamingos", otherTeam:"Baluga Whales", gameID:2, bet:10},
     ];
     
@@ -125,16 +152,16 @@ function getMyBets(bets, bot, message) {
         
     var id = message.user;
     
-    controller.storage.users.get(id, function(err, data) {
+    controller.storage.users.get(id, function(err, data) { // data is what you stored i.e. data.team
         console.log('get bets');        
-        
+        console.log(data);
         
         
      bets.forEach(function(bet) {
-        if (bet.name == bot["identity"]["name"]) {
+        if (data.name == bot["identity"]["name"]) {
         
     attachment.fields.push({
-        title: "League: " + data.league + "\n" + bet.team + " vs. " + bet.otherTeam,
+        title: "League: " + data.league,// + "\n" + bet.team + " vs. " + bet.otherTeam,
         title_link: 'http://nhl.com',
         label: 'Field',
         value: "Game ID: " + bet.gameID,
@@ -149,7 +176,7 @@ function getMyBets(bets, bot, message) {
 
     attachment.fields.push({
         label: 'Field',
-        title: "You bet: " + bet.bet + " :taco: on the " + bet.team,
+        title: "You bet: " + data.bet + " :taco: on the " + data.team,
         short: false,
     });
         }
