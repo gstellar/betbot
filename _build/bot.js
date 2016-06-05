@@ -29,8 +29,7 @@ controller.on('create_bot',function(bot,config) {
 
 });
 
-
-  controller.spawn({
+bot = controller.spawn({
   token: process.env.token
 }).startRTM(function(err) {
   if (err) {

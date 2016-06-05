@@ -23,6 +23,7 @@ gbotSportsAPI = (function () {
     options.url = 'https://www.stattleship.com/basketball/nba/games';
     return new Promise(function (resolve, reject) {
       request.get(options).then(function (e) {
+        eventEmitter.emit('upcoming-games', populateGames(e.games));
         resolve(populateGames(e.games));
       }).catch(function (e) {
         reject(Error("Unable to fetch data: " + e));
@@ -34,6 +35,7 @@ gbotSportsAPI = (function () {
     options.url = 'https://www.stattleship.com/hockey/nhl/games';
     return new Promise(function (resolve, reject) {
       request.get(options).then(function (e) {
+        eventEmitter.emit('upcoming-games', populateGames(e.games));
         resolve(populateGames(e.games));
       }).catch(function (e) {
         reject(Error("Unable to fetch data: " + e));

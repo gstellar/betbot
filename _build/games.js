@@ -1,15 +1,30 @@
-games = function games(slashCommand, message) {
-    console.log("games command");
-    
-    //var responseObj = getGames();  
-    slashCommand.replyPublic(message, responseObj , function() {
-        // callback
+
+/**
+ * Called from slashCommands.js
+ */
+games = function games(slashCommand, message) {    
+    // Get games from API                 
+    gbotSportsAPI.getNbaGames();                 
+                 
+    // Listen to event emitted by getNbaGames()
+    eventEmitter.on('upcoming-games', function (gameObject) {                
+        // Define a response object based on data from API 
+        var games = [
+        {
+            gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers", score1:2, score2:1
+        },
+        {
+            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins", score1:3, score2:2
+        }
+    ];
+        var responseObj = getUpcomingGames(games);        
+        slashCommand.replyPublic(message, responseObj, function() {});        
     });
-    
 }
 
 // Listening methods
 controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,message) {
+
     var games = [
         {
             gameNumber:4, date:"June 26, 2016", winningTeam:"Sharks :sshar:", score1:2, score2:1
@@ -30,6 +45,7 @@ controller.hears(['upcoming'],['direct_message','direct_mention'],function(bot,m
 });
 
 controller.hears(['all'],['direct_message','direct_mention'],function(bot,message) {
+
     var games = [
         {
             gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers :cavs:", score1:2, score2:1
@@ -69,9 +85,10 @@ controller.hears(['current'],['direct_message','direct_mention'],function(bot,me
 
 // Getters
 function getUpcomingGames(games) {
-    
-    // gbotSportsAPI.getNbaGames().then(function(response) {
-    
+                
+    console.log("Extract some data from here: ");
+    console.log(gameObject);                
+                
     var attachments = [];
     var attachment = {
         fallback: "Upcoming Games",
@@ -100,11 +117,7 @@ function getUpcomingGames(games) {
     attachments.push(attachment);
 
     return {attachments: attachments};
-    
-    // }, function(error) {
-    //     console.error("Failed!", error);
-    // });
-        
+
 }
 
 function getCurrentGames(games) {
