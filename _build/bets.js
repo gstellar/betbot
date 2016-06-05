@@ -160,7 +160,7 @@ function getMyBets(bets, bot, message) {
                     title: "League: " + data.league,// + "\n" + bet.team + " vs. " + bet.otherTeam,
                     title_link: 'http://nhl.com',
                     label: 'Field',
-                    value: "Game ID: " + bet.gameID,
+                    // value: "Game ID: " + bet.gameID,
                     short: false,
                 });
 
@@ -191,7 +191,7 @@ function getMyBets(bets, bot, message) {
 
 }
 
-function getAllBets() {
+function getAllBets(bot, message) {
     var attachments = [];
     var attachment = {
         fallback: "All Bets",
@@ -199,35 +199,40 @@ function getAllBets() {
         fields: [],
     };
 
-    bets.forEach(function (bet) {
-        attachment.fields.push({
-            title: bet.team + " vs. " + bet.otherTeam,
-            title_link: 'http://nhl.com',
-            label: 'Field',
-            value: "Game ID: " + bet.gameID,
-            short: false,
-        });
+    var id = message.user;
+
+    controller.storage.users.get(id, function (err, data) {
+
+        bets.forEach(function (bet) {
+            attachment.fields.push({
+                title: "League: " + data.league,
+                title_link: 'http://nhl.com',
+                label: 'Field',
+                // value: "Game ID: " + bet.gameID,
+                short: false,
+            });
+
+            // attachment.fields.push({
+            //     label: 'Field',
+            //     value: bet.date,
+            //     short: false,
+            // });
+
+            attachment.fields.push({
+                label: 'Field',
+                title: data.name + " bet: " + data.bet + " :taco: on the " + data.team,
+                short: false,
+            });
+        }, this);
 
         attachment.fields.push({
             label: 'Field',
-            value: bet["date"],
+            value: "~ May the odds be ever in your favour ~",
             short: false,
         });
 
-        attachment.fields.push({
-            label: 'Field',
-            title: "You bet: " + bet.bet + " :taco: on the " + bet.team,
-            short: false,
-        });
-    }, this);
-
-    attachment.fields.push({
-        label: 'Field',
-        value: "~ May the odds be ever in your favour ~",
-        short: false,
+        attachments.push(attachment);
     });
-
-    attachments.push(attachment);
 
     return { attachments: attachments };
 
