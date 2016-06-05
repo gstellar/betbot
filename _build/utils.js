@@ -5,12 +5,12 @@ gbotUtil = (function () {
         createCurrentGamesAttachment: CreateCurrentGamesAttachment
     };
     // PRIVATE METHODS
-    function formatDate(date){
+    function formatDate(date) {
         date = date.replace(/\s\s+/g, ' ');
         var dateElements = date.split(' ');
         return dateElements[0].substring(0, 3) + " " + dateElements[1] + " " + dateElements[2];
     }
-    
+
     // PUBLIC METHODS
     function CreateScoresAttachment(games) {
         var attachments = [];
@@ -37,12 +37,12 @@ gbotUtil = (function () {
         var fields = [];
         games.forEach(function (e) {
             var newDate = new Date(Date.parse(formatDate(e.date)));
-            newDate.setHours(0,0,0,0);
+            newDate.setHours(0, 0, 0, 0);
             var newDate1 = new Date();
-            newDate1.setHours(0,0,0,0);
-            
+            newDate1.setHours(0, 0, 0, 0);
+
             var today = new Date();
-            if(newDate.getTime() === newDate1.getTime()){
+            if (newDate.getTime() === newDate1.getTime()) {
                 fields.push({
                     title: "Game " + e.gameNumber + " will begin on " + e.date + " at " + e.time,
                     color: '#ff6600',
@@ -68,7 +68,7 @@ gbotUtil = (function () {
             var newDate = Date.parse(formatDate(e.date));
             var today = new Date();
             var isUpcoming = newDate >= today.getTime();
-            if(isUpcoming){
+            if (isUpcoming) {
                 fields.push({
                     title: "Game " + e.gameNumber + " begins today at " + e.date,
                     color: '#ff6600',
