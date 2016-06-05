@@ -185,48 +185,48 @@ function loserMessage() {
 }
 
 // Call when games are oversssss
-function addPoint(message) {
+// function addPoint(message) {
 
-    var id = message.user;
+//     var id = message.user;
     
-    // increment points by 1
-    var points = parseInt(getPoints(message));
-    points++;
-    controller.storage.users.save({
-        id: id,
-        points: points
-    }, function (err) {
-        console.log(err);
-    });
+//     // increment points by 1
+//     var points = parseInt(getPoints(message));
+//     points++;
+//     controller.storage.users.save({
+//         id: id,
+//         points: points
+//     }, function (err) {
+//         console.log(err);
+//     });
     
-    winnerMessage();
-}
+//     winnerMessage();
+// }
 
-function getPoints(message) {
-    var id = message.user;
+// function getPoints(message) {
+//     var id = message.user;
 
-    controller.storage.users.get(id, function (err, data) {
-        if (data.name == null) {
-            var name = bot["identity"]["name"];
-            controller.storage.users.save({
-                id: id,
-                name: name
-            }, function (err) {
-                console.log(err);
-            });
-        }
-        if (data.points == null) {
-            var points = 0;
-            controller.storage.users.save({
-                id: id,
-                points: points
-            }, function (err) {
-                console.log(err);
-            });
-            return 0;
-        }
-        else {
-            return data.points;
-        }
-    });
-}
+//     controller.storage.users.get(id, function (err, data) {
+//         if (data.name == null) {
+//             var name = bot["identity"]["name"];
+//             controller.storage.users.save({
+//                 id: id,
+//                 name: name
+//             }, function (err) {
+//                 console.log(err);
+//             });
+//         }
+//         if (data.points == null) {
+//             var points = 0;
+//             controller.storage.users.save({
+//                 id: id,
+//                 points: points
+//             }, function (err) {
+//                 console.log(err);
+//             });
+//             return 0;
+//         }
+//         else {
+//             return data.points;
+//         }
+//     });
+// }
