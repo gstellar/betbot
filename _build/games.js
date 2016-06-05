@@ -1,4 +1,13 @@
+/*
 
+ View the status of all current games / upcoming games.
+
+ # USAGE
+ upcoming                       -   Shows upcoming games.
+ all                            -   Shows all games.
+ current                        -   Shows current games.
+
+ */
 /**
  * Called from slashCommands.js
  */
