@@ -65,6 +65,7 @@ gbotUtil = (function () {
         var attachments = [];
         var fields = [];
         games.forEach(function (e) {
+            console.log(e);
             var newDate = Date.parse(formatDate(e.date));
             var today = new Date();
             var isUpcoming = newDate >= today.getTime();
