@@ -12,13 +12,22 @@ View leaderboard - username, rank, number of points
 
 */
 
+var myCommand = null;
+var myMessage = null;
+
 function leaderboard(slashCommand, message) {
-    // console.log("leaderboard command");
+    var gameType = message.text;
+    myCommand = slashCommand;
+    myMessage = message;
+
+    if (gameType == "mine") {
+        showPosition(slashCommand, message);
+    }
+    else {
+        showLeaderboard(slashCommand, message);
+    }
+
     
-    // slashCommand.replyPublic(message, "1", function() {
-    //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-    // });
-    showLeaderboard(slashCommand, message);
 }
 
 // Listening methods
