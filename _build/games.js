@@ -1,16 +1,27 @@
+// Listen for upcoming events
 
-/**
- * Called from slashCommands.js
- */
-games = function games(slashCommand, message) {    
-    // Get games from API                 
-    gbotSportsAPI.getNbaGames();                 
-                 
-    // Listen to event emitted by getNbaGames()
-    eventEmitter.on('upcoming-games', function (games) {
-        var responseObj = getUpcomingGames(games);        
-        slashCommand.replyPublic(message, responseObj, function() {});        
-    });
+var myCommand = null;
+var myMessage = null;
+
+eventEmitter.on('upcoming-games', function (games) {
+    var responseObj = getUpcomingGames(games);        
+    myCommand.replyPublic(myMessage, responseObj, function() {});        
+}); 
+
+/** Called from slashCommands.js */
+games = function games(slashCommand, message) {
+    
+    var gameType = message.text;
+    myCommand = slashCommand;
+    myMessage = message;
+    
+    if (gameType == "nba") {
+        gbotSportsAPI.getNbaGames();    
+    } else if (gameType == "nhl") {
+        gbotSportsAPI.getNhlGames();
+    } else {
+      slashCommand.replyPublic(message, "Use /games nba or /games nhl to get upcoming games of the league", function() {});  
+    } 
 }
 
 // Listening methods
@@ -76,9 +87,7 @@ controller.hears(['current'],['direct_message','direct_mention'],function(bot,me
 
 // Getters
 function getUpcomingGames(games) {
-                
-    console.log("Extract some data from here: ");                
-                
+                                              
     var attachments = [];
     var attachment = {
         fallback: "Upcoming Games",
