@@ -68,13 +68,13 @@ function showPosition(leaderboard, bot) {
 
     leaderboard.forEach(function(entry) {
 
-        if (entry["name"] == bot["identity"]["name"]) {
+        if (entry.name == bot["identity"]["name"]) {
             
         
         if (entry["rank"] == 1) {
             formattedLeaderboard.push(
             {
-                value: entry["rank"] + ". " + entry["name"] + " :crown:",
+                value: entry.rank + ". " + entry.name + " :crown:",
                 short: true
             }
         );
@@ -82,14 +82,14 @@ function showPosition(leaderboard, bot) {
         else {
             formattedLeaderboard.push(
             {
-                value: entry["rank"] + ". " + entry["name"],
+                value: entry.rank + ". " + entry.name,
                 short: true
             }
         );
         }
         formattedLeaderboard.push(
             {
-                title: entry["points"] + " :watermelon:",
+                title: entry.points + " :watermelon:",
                 short: true
             }
         );
@@ -113,10 +113,10 @@ function showLeaderboard(leaderboard) {
     
     leaderboard.forEach(function(entry) {
         
-        if (entry["rank"] == 1) {
+        if (entry.rank == 1) {
             formattedLeaderboard.push(
             {
-                value: entry["rank"] + ". " + entry["name"] + " :crown:",
+                value: entry.rank + ". " + entry.name + " :crown:",
                 short: true
             }
         );
@@ -124,14 +124,14 @@ function showLeaderboard(leaderboard) {
         else {
             formattedLeaderboard.push(
             {
-                value: entry["rank"] + ". " + entry["name"],
+                value: entry.rank + ". " + entry.name,
                 short: true
             }
         );
         }
         formattedLeaderboard.push(
             {
-                title: entry["points"] + " :watermelon:",
+                title: entry.points + " :watermelon:",
                 short: true
             }
         );
