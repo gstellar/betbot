@@ -7,16 +7,7 @@ games = function games(slashCommand, message) {
     gbotSportsAPI.getNbaGames();                 
                  
     // Listen to event emitted by getNbaGames()
-    eventEmitter.on('upcoming-games', function (gameObject) {                
-        // Define a response object based on data from API 
-        var games = [
-        {
-            gameNumber:4, date:"June 26, 2016", winningTeam:"Panthers", score1:2, score2:1
-        },
-        {
-            gameNumber:5, date:"June 16, 2016", winningTeam:"Penguins", score1:3, score2:2
-        }
-    ];
+    eventEmitter.on('upcoming-games', function (games) {
         var responseObj = getUpcomingGames(games);        
         slashCommand.replyPublic(message, responseObj, function() {});        
     });
@@ -86,8 +77,7 @@ controller.hears(['current'],['direct_message','direct_mention'],function(bot,me
 // Getters
 function getUpcomingGames(games) {
                 
-    console.log("Extract some data from here: ");
-    console.log(gameObject);                
+    console.log("Extract some data from here: ");                
                 
     var attachments = [];
     var attachment = {
@@ -98,9 +88,17 @@ function getUpcomingGames(games) {
     }
     
     games.forEach(function(game) {
-        if (game["date"] > today) { // NEED TO DECIDE WHEN "UPCOMING" IS
+        //if (game["date"] > today) { // NEED TO DECIDE WHEN "UPCOMING" IS
+        
         attachment.fields.push({
-            title: "Game " + game["gameNumber"] + " begins " + game["date"],
+            title: "Game " + game.gameNumber + " begins at " + game.date,
+            title_link: 'http://nhl.com',
+            color: '#ff6600',
+            short: false,
+        });
+        
+        attachment.fields.push({
+            title: "Game " + game.gameNumber + " begins at " + game.date,
             title_link: 'http://nhl.com',
             color: '#ff6600',
             short: false,
@@ -108,10 +106,10 @@ function getUpcomingGames(games) {
 
         attachment.fields.push({
             label: 'Field',
-            value: game["winningTeam"] + " lead the series " + game["score1"] + " - " + game["score2"],
+            value: game.winningTeam + " lead the series " + game.home + " - " + game.score2,
             short: false,
         });
-        }
+        //}
     }, this);
     
     attachments.push(attachment);

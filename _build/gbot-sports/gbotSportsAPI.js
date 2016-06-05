@@ -50,7 +50,7 @@ gbotSportsAPI = (function () {
       var game = new Game(element, index);
       result.push(game);
     });
-    console.log(result);
+    //console.log(result);
     return result;
   }
 
