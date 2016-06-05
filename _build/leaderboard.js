@@ -184,6 +184,7 @@ function loserMessage() {
     return { attachments: attachments };
 }
 
+// Call when games are over
 function addPoint(message) {
 
     var id = message.user;
@@ -196,6 +197,8 @@ function addPoint(message) {
     }, function (err) {
         console.log(err);
     });
+    
+    winnerMessage();
 }
 
 function getPoints(message) {
