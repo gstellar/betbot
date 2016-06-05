@@ -56,17 +56,6 @@ controller.hears(['what teams'], ['direct_message', 'direct_mention', 'mention']
   bot.reply(message, "You can bet on any NHL, NFL, and NBA games :smile_cat:");
 });
 
-controller.hears(['bet'], ['direct_message', 'direct_mention', 'mention'], function (bot, message) {
-  bot.reply(message, "You can make a bet using the '/bet' slash command.");
-});
-
-controller.hears(['show leaderboard'], ['direct_message', 'direct_mention', 'mention'], function (bot, message) {
-  bot.reply(message, "Do you want to see the leaderboard?");
-  controller.hears(['yes'], ['direct_message', 'direct_mention', 'mention'], function (bot, message) {
-    bot.reply(message, "TOO BAD!");
-  });
-});
-
 controller.hears(['shutdown'], ['direct_message', 'direct_mention'], function (bot, message) {
 
   bot.startConversation(message, function (err, convo) {
