@@ -6,14 +6,13 @@ View scores and stats in real time.
      odds [to-do]                      -   Shows your favourability
      scores                            -   Shows the score
      stats [to-do]                     -   Shows your odds
-
 */
 
 /**
  * Info message
  */
 controller.hears(['scores'], ['direct_message', 'direct_mention'], function (bot, message) {
-    bot.reply(message, "Type 'scores nba' or 'scores nhl' to get scores by league", function () {});    
+    bot.reply(message, "Type 'scores nba' or 'scores nhl' to get scores by league", function () { });
 });
 
 /**
@@ -29,7 +28,6 @@ controller.hears(['scores nba'], ['direct_message', 'direct_mention'], custom_he
     });
 });
 
-
 /**
  * Return NHL scores
  */
@@ -42,8 +40,6 @@ controller.hears(['scores nhl'], ['direct_message', 'direct_mention'], custom_he
         });
     });
 });
-
-
 
 /**
  * Middleware to match exact commands
