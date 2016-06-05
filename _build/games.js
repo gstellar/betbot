@@ -186,7 +186,7 @@ function getAllGames(games) {
     }
     games.forEach(function (game) {
         attachment.fields.push({
-            title: "GameID" + game.gameID + ". " + game.otherTeam + " vs " + game.favouredTeam + " @ " + game.date,
+            title: "GameID" + game.gameID + ". " + game.awayTeam + " vs " + game.homeTeam + " @ " + game.date,
             title_link: 'http://nhl.com',
             color: '#ff6600',
             short: false,
