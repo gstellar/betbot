@@ -44,18 +44,18 @@ function getScore(game) {
     var attachments = [];
     var attachment = {
         fallback: "Score",
-        title: game["date"],
+        title: game.date,
         title_link: 'http://nhl.com',
         color: '#08ddf1',
         fields: [
             {
-                title: game["favouredTeam"],
-                value: game["score1"],
+                title: game.favouredTeam,
+                value: game.score1,
                 short: true
             },
             {
-                title:game["otherTeam"],
-                value: game["score2"],
+                title:game.otherTeam,
+                value: game.score2,
                 short: true
             }
         ],
@@ -64,7 +64,7 @@ function getScore(game) {
 
     attachment.fields.push({
         label: 'Field',
-        value: game["winningTeam"] + " lead the series",
+        value: game.winningTeam + " lead the series",
         short: false,
     });
 
@@ -78,7 +78,7 @@ function getFavourability(game) {
     var attachment = {
         fallback: "Favourability",
         title: 'Team Stats',
-        text: "*" + game["favouredTeam"] + "* favoured by " + game["favouredBy"],
+        text: "*" + game.favouredTeam + "* favoured by " + game.favouredBy,
         mrkdwn_in: ["text"],
     };
 
