@@ -1,11 +1,9 @@
 var Botkit = require('../node_modules/botkit/lib/Botkit.js');
 
-
 // Import events module
 var events = require('events');
 // Create an eventEmitter object
 eventEmitter = new events.EventEmitter();
-
 
 controller = Botkit.slackbot({
     debug: false,
@@ -21,4 +19,3 @@ require('./stats.js');
 require('./games.js');
 require('./conversations.js');
 require('./slashCommands.js');
-
