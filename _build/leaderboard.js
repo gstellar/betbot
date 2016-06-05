@@ -183,3 +183,46 @@ function loserMessage() {
 
     return { attachments: attachments };
 }
+
+function addPoint(message) {
+
+    var id = message.user;
+    
+    // increment points by 1
+    var points = getPoints(message)++;
+    controller.storage.users.save({
+        id: id,
+        points: points
+    }, function (err) {
+        console.log(err);
+    });
+}
+
+function getPoints(message) {
+    var id = message.user;
+
+    controller.storage.users.get(id, function (err, data) {
+        if (data.name == null) {
+            var name = bot["identity"]["name"];
+            controller.storage.users.save({
+                id: id,
+                name: name
+            }, function (err) {
+                console.log(err);
+            });
+        }
+        if (data.points == null) {
+            var points = 0;
+            controller.storage.users.save({
+                id: id,
+                points: points
+            }, function (err) {
+                console.log(err);
+            });
+            return 0;
+        }
+        else {
+            return data.points;
+        }
+    });
+}
