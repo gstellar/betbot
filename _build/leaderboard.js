@@ -12,13 +12,10 @@ View leaderboard - username, rank, number of points
 
 */
 
-var myCommand = null;
-var myMessage = null;
+
 
 function leaderboard(slashCommand, message) {
     var gameType = message.text;
-    myCommand = slashCommand;
-    myMessage = message;
 
     if (gameType == "mine") {
         showPosition(slashCommand, message);
@@ -183,50 +180,3 @@ function loserMessage() {
 
     return { attachments: attachments };
 }
-
-// Call when games are oversssss
-// function addPoint(message) {
-
-//     var id = message.user;
-    
-//     // increment points by 1
-//     var points = parseInt(getPoints(message));
-//     points++;
-//     controller.storage.users.save({
-//         id: id,
-//         points: points
-//     }, function (err) {
-//         console.log(err);
-//     });
-    
-//     winnerMessage();
-// }
-
-// function getPoints(message) {
-//     var id = message.user;
-
-//     controller.storage.users.get(id, function (err, data) {
-//         if (data.name == null) {
-//             var name = bot["identity"]["name"];
-//             controller.storage.users.save({
-//                 id: id,
-//                 name: name
-//             }, function (err) {
-//                 console.log(err);
-//             });
-//         }
-//         if (data.points == null) {
-//             var points = 0;
-//             controller.storage.users.save({
-//                 id: id,
-//                 points: points
-//             }, function (err) {
-//                 console.log(err);
-//             });
-//             return 0;
-//         }
-//         else {
-//             return data.points;
-//         }
-//     });
-// }
