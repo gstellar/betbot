@@ -84,6 +84,15 @@ controller.hears(['current nba'], ['direct_message', 'direct_mention'], function
     });
 });
 
+controller.hears(['current nhl'], ['direct_message', 'direct_mention'], function (bot, message) {
+    gbotSportsAPI.getNhlGames();
+    myMessage = message;
+    eventEmitter.on('upcoming-games', function (games) {
+        var responseObj = gbotUtil.createCurrentGamesAttachment(games);
+        bot.reply(message, responseObj, function () { });
+    });
+});
+
 function custom_hear_middleware(patterns, message) {
 
     for (var p = 0; p < patterns.length; p++) {
