@@ -37,9 +37,27 @@ games = function games(slashCommand, message) {
 }
 
 // Listening methods
-controller.hears(['upcoming'], ['direct_message', 'direct_mention'], function (bot, message) {
-
+controller.hears(['upcoming'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
+    console.log("1 " +message.text);
     gbotSportsAPI.getNbaGames();  
+    myMessage = message;               
+    eventEmitter.on('upcoming-games', function (games) {
+        var responseObj = gbotUtil.createUpcomingGamesAttachment(games);        
+        bot.reply(message, responseObj, function() {});        
+    });
+});
+
+controller.hears(['upcoming nba'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
+    gbotSportsAPI.getNbaGames();  
+    myMessage = message;               
+    eventEmitter.on('upcoming-games', function (games) {
+        var responseObj = gbotUtil.createUpcomingGamesAttachment(games);        
+        bot.reply(message, responseObj, function() {});        
+    });
+});
+
+controller.hears(['upcoming nhl'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
+    gbotSportsAPI.getNhlGames();  
     myMessage = message;               
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);        
@@ -66,3 +84,12 @@ controller.hears(['current'], ['direct_message', 'direct_mention'], function (bo
     });
 });
 
+function custom_hear_middleware(patterns, message) {
+
+    for (var p = 0; p < patterns.length; p++) {
+        if (patterns[p] == message.text) {
+            return true;
+        }
+    }
+    return false;
+}
