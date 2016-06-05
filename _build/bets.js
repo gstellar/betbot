@@ -23,29 +23,6 @@ function bet(slashCommand, message) {
     });
 }
 
-
-// THIS IS BROKEN
-// controller.hears(['place a bet'],['direct_message','direct_mention'],function(bot,message) {
-//     var gameID, team, bet;
-//
-//     // controller.storage.users.save(user, function(err, id) {
-//         bot.startConversation(message, function(err, convo) {
-//             if (!err) {
-//         convo.ask("What is the game ID?", function(response1, convo){
-//             gameID = response1;
-//             convo.ask("Which team are you betting on?", function(response2, convo){
-//                 team = response2;
-//                 convo.ask("What are you betting?", function(response3, convo){
-//                     bet = response3;
-//                     convo.next();
-//                 });
-//             });
-//         });
-//             }
-//         });
-//         placeBet(bot, message, gameID, team, bet);
-// });
-
 controller.hears(['place bet'], ['direct_message','direct_mention'], function(bot,message) {
     askLeague  = function(response, convo) {
         convo.ask('Which sports league?', function(response, convo) {
@@ -70,22 +47,30 @@ controller.hears(['place bet'], ['direct_message','direct_mention'], function(bo
 
     bot.startConversation(message, askLeague);
 });
-    
-
-// controller.hears(['place bet (.*) (.*) (.*)'],['direct_message','direct_mention'],function(bot,message) {
-//     var gameID = message.match[1];
-//     var team = message.match[2];
-//     var bet = message.match[3]
-//     bot.reply(message, "Success!");
-//     placeBet(bot, message, gameID, team, bet);
-// });
+  
 
 controller.hears(['my bets'],['direct_message','direct_mention'],function(bot,message) {
-    myBets(bot, message);
+    bets = [
+        {name:"stellabot", team:"Panthers", otherTeam:"Penguins", gameID:12, bet:10},
+        {name:"alisterdev", team:"Flamingos", otherTeam:"Baluga Whales", gameID:2, bet:10},
+    ];
+    
+    var responseObj = getMyBets(bets, bot);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
 });
 
 controller.hears(['all bets'],['direct_message','direct_mention'],function(bot,message) {
-    allBets(bot, message);
+    bets = [
+        {name:"stellabot", team:"Panthers", otherTeam:"Penguins", gameID:12, bet:10},
+        {name:"alisterdev", team:"Flamingos", otherTeam:"Baluga Whales", gameID:2, bet:10},
+    ];
+    
+    var responseObj = getAllBets(bets);
+    bot.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+    });
 });
 
 function placeBet(bot, message, gameID, team, bet) {
@@ -97,12 +82,6 @@ function placeBet(bot, message, gameID, team, bet) {
         short: false,
     };
 
-    // attachment.fields.push({
-    //     label: 'Field',
-    //     value: "May the odds be ever in your favour",
-    //     short: false,
-    // });
-
     attachments.push(attachment);
 
     bot.reply(message,{
@@ -113,46 +92,43 @@ function placeBet(bot, message, gameID, team, bet) {
 
 }
 
-function myBets(bot, message) {
-    var responseObj = getMyBets(bot, message);
-    bot.reply(message,responseObj, function(err,resp) {
-        console.log(err,resp);
-    });
 
-}
-
-function getMyBets() {
+function getMyBets(bets, bot) {
     var attachments = [];
     var attachment = {
-        fallback: "Sharks vs. Penguins",
-        title: "Sharks vs. Penguins",
-        title_link: 'http://nhl.com',
-        color: '#ff007f',
+        fallback: "My Bets",
+        title: "My Bets",
         fields: [],
-        short: false,
     };
     
+    bets.forEach(function(bet) {
+        if (bet["name"] == bot["identity"]["name"]) {
+        
     attachment.fields.push({
+        title: bet["team"] + " vs. " + bet["otherTeam"],
+        title_link: 'http://nhl.com',
         label: 'Field',
-        value: "Game ID: 927",
+        value: "Game ID: " + bet["gameID"],
         short: false,
     });
 
     attachment.fields.push({
         label: 'Field',
-        value: "June 26th 2016 at 7:00 EST",
+        value: bet["date"],
         short: false,
     });
 
     attachment.fields.push({
         label: 'Field',
-        title: "You bet: 10 :taco: on the Sharks",
+        title: "You bet: " + bet["bet"] + " :taco: on the " + bet["team"],
         short: false,
     });
+        }
+    }, this);
 
     attachment.fields.push({
         label: 'Field',
-        value: "May the odds be ever in your favour",
+        value: "~ May the odds be ever in your favour ~",
         short: false,
     });
 
@@ -161,56 +137,44 @@ function getMyBets() {
     return {attachments: attachments};
 }
 
-function allBets() {
-    var responseObj = getAllBets(bot, message);
-    bot.reply(message,responseObj, function(err,resp) {
-        console.log(err,resp);
-    });
-}
-
 function getAllBets() {    
     var attachments = [];
     var attachment = {
-        fallback: "Sharks vs. Penguins",
-        title: "Sharks vs. Penguins",
-        title_link: 'http://nhl.com',
-        color: '#ff007f',
+        fallback: "All Bets",
+        title: "All Bets",
         fields: [],
-        short: false,
     };
     
+    bets.forEach(function(bet) {
     attachment.fields.push({
+        title: bet["team"] + " vs. " + bet["otherTeam"],
+        title_link: 'http://nhl.com',
         label: 'Field',
-        value: "Game ID: 927",
+        value: "Game ID: " + bet["gameID"],
         short: false,
     });
 
     attachment.fields.push({
         label: 'Field',
-        value: "June 26th 2016 at 7:00 EST",
+        value: bet["date"],
         short: false,
     });
 
     attachment.fields.push({
         label: 'Field',
-        title: "You bet: 10 :taco: on the Sharks",
+        title: "You bet: " + bet["bet"] + " :taco: on the " + bet["team"],
         short: false,
     });
+    }, this);
 
     attachment.fields.push({
         label: 'Field',
-        title: "Alex bet: 10 :taco: on the Sharks",
-        short: false,
-    });
-    
-    attachment.fields.push({
-        label: 'Field',
-        title: "Darryl bet: 10 :taco: on the Penguins",
+        value: "~ May the odds be ever in your favour ~",
         short: false,
     });
 
     attachments.push(attachment);
-
+    
     return {attachments: attachments};
 
 }
