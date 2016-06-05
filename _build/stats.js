@@ -8,12 +8,12 @@ View scores and stats in real time.
      stats [to-do]                     -   Shows your odds
 */
 
-/**
- * Info message
- */
-controller.hears(['scores'], ['direct_message', 'direct_mention'], function (bot, message) {
-    bot.reply(message, "Type 'scores nba' or 'scores nhl' to get scores by league", function () { });
-});
+// /**
+//  * Info message
+//  */
+// controller.hears(['scores'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
+//     bot.reply(message, "Type 'scores nba' or 'scores nhl' to get scores by league", function () { });
+// });
 
 /**
  * Return NBA scores
