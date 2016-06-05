@@ -14,13 +14,25 @@ How can you change your bet?
 */
 
 function bet(slashCommand, message) {
-    // console.log("bet command");
-    
-    // myBets(slashCommand, message);
-    
-    slashCommand.replyPublic(message, responseObj , function() {
-        // callback
-    });
+    var gameType = message.text;
+    myCommand = slashCommand;
+    myMessage = message;
+
+    if (gameType == "mine") {
+        var responseObj = getMyBets(bets, slashCommand);
+        slashCommand.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+        });
+    }
+    else if (gameType == "all") {
+        var responseObj = getAllBets(bets);
+        slashCommand.reply(message,responseObj, function(err,resp) {
+        console.log(err,resp);
+        });
+    }
+    else {
+        slashCommand.replyPublic(message, "Use /bets all or /bets mine to see all bets or your bets. Or, use @stellabot place bet to place a bet.", function () { });
+    }
 }
 
 controller.hears(['place bet'], ['direct_message','direct_mention'], function(bot,message) {
