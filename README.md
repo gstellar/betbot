@@ -8,5 +8,5 @@ Installation instructions
 
 Available commands for BetBot:
 
-````upcoming [league]``` Show upcoming games of a specific sport league 
-````current [league]``` Show current games of the day for a specific sport league 
+```upcoming [league]``` Show upcoming games of a specific sport league 
+```current [league]``` Show current games of the day for a specific sport league 
