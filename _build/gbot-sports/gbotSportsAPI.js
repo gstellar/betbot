@@ -43,10 +43,12 @@ gbotSportsAPI = (function () {
   
   function populateGames(games){
     var result = [];
-    games.forEach((element) => {
-      var game = new Game(element);
+    games.reverse();
+    games.forEach((element, index) => {
+      var game = new Game(element, index);
       result.push(game);
     });
+    console.log(result);
     return result;
   }
 
