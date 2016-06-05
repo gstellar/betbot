@@ -10,7 +10,7 @@ gbotUtil = (function () {
         games.forEach(function (e) {
             console.log(e);
             fields.push({
-                title: 	":" + e.awayTeam.toString() + ": " + e.awayTeam + " (" + e.awayScore + ") " + " @ " + ":" + e.homeTeam.toString() + ": " + e.homeTeam + " (" + e.homeScore + ")"
+                title: ":" + e.awayTeam.toString() + ": " + e.awayTeam + " (" + e.awayScore + ") " + " @ " + ":" + e.homeTeam.toString() + ": " + e.homeTeam + " (" + e.homeScore + ")"
             });
         });
 
@@ -24,8 +24,26 @@ gbotUtil = (function () {
         attachments.push(attachment);
         return { attachments: attachments };
     }
-    
-    function CreateGamesAttachment(games){
-        //TODO
+
+    function CreateGamesAttachment(games) {
+        var attachments = [];
+        var fields = [];
+        games.forEach(function (e) {
+            fields.push({
+                title: "Game " + e.gameNumber + " begins at " + e.date,
+                color: '#ff6600',
+                short: false,
+            });
+        });
+
+        var attachment = {
+            fallback: "Upcoming Games",
+            title: "Upcoming Games",
+            fields: fields,
+            short: false,
+        };
+
+        attachments.push(attachment);
+        return { attachments: attachments };
     }
 })();
