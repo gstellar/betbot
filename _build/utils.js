@@ -1,7 +1,7 @@
 gbotUtil = (function () {
     return {
         createScoresAttachment: CreateScoresAttachment,
-        createGamesAttachment: CreateGamesAttachment
+        createUpcomingGamesAttachment: createUpcomingGamesAttachment
     };
 
     function CreateScoresAttachment(games) {
@@ -25,7 +25,7 @@ gbotUtil = (function () {
         return { attachments: attachments };
     }
 
-    function CreateGamesAttachment(games) {
+    function createUpcomingGamesAttachment(games) {
         var attachments = [];
         var fields = [];
         games.forEach(function (e) {
