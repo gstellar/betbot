@@ -159,15 +159,9 @@ function getAllGames(games) {
     }
     games.forEach(function(game) {
         attachment.fields.push({
-            title: "Game " + game.gameNumber + " begins " + game.date,
+            title: "GameID" + game.gameID + ". " + game.otherTeam + " vs " + game.favouredTeam + " @ " + game.date,
             title_link: 'http://nhl.com',
             color: '#ff6600',
-            short: false,
-        });
-
-        attachment.fields.push({
-            label: 'Field',
-            value: game.winningTeam + " lead the series " + game.score1 + " - " + game.score2,
             short: false,
         });
     }, this);
