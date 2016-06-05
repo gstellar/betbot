@@ -36,64 +36,51 @@ function bet(slashCommand, message) {
 }
 
 controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (bot, message) {
+    
+    
+    var name = bot["identity"]["name"];
+    var league = null;
+    var id = null;
+    var team = null;
+    var bet = null;
+    
     askLeague = function (response, convo) {
-        convo.ask('Which sports league?', function (response, convo) {
-            
-            var name = bot["identity"]["name"];
-            controller.storage.users.save({
-                id: response.user,
-                name: name
-            }, function (err) {
-                console.log(err);
-            });
-
-            var league = response.text.toLowerCase();
-            controller.storage.users.save({
-                id: response.user,
-                league: league
-            }, function (err) {
-                console.log(err);
-            });
-
+        convo.ask('Which sports league?', function (response, convo) {                                 
+            id = response.user;
+            league = response.text.toLowerCase();         
             convo.say('Great choice!');
             askTeam(response, convo);
             convo.next();
         });
     }
     askTeam = function (response, convo) {
-        convo.ask('Which team?', function (response, convo) {
-            
-            
-            var team = response.text.toLowerCase();
-            controller.storage.users.save({
-                id: response.user,
-                team: team
-            }, function (err) {
-                console.log(err);
-            });
-
+        convo.ask('Which team?', function (response, convo) {                        
+            team = response.text.toLowerCase();         
             convo.say("Awesome, that's my favourite.");
             askBet(response, convo);
             convo.next();
         });
     }
     askBet = function (response, convo) {
-        convo.ask('How many tacos?', function (response, convo) {
-            
-            var bet = response.text.toLowerCase();
+        convo.ask('How many tacos?', function (response, convo) {            
+            bet = response.text.toLowerCase();           
             controller.storage.users.save({
-                id: response.user,
-                bet: bet
+            name: name,
+            id: id,        
+            league: league,        
+            team: team,
+            bet: bet  
             }, function (err) {
                 console.log(err);
             });
-
             convo.say("Bold move. Let's see if it pays off.");
             convo.next();
         }); 
     }
 
     bot.startConversation(message, askLeague);
+     
+    
 });
 
 controller.hears(['my bet', 'my bets'], ['direct_message', 'direct_mention'], function (bot, message) {
