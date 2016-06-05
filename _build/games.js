@@ -1,4 +1,3 @@
-
 /**
  * Called from slashCommands.js
  */
