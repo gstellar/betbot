@@ -95,3 +95,17 @@ controller.hears(['thanks', 'thank you'], 'direct_message,direct_mention,mention
   });
   bot.reply(message, "You are most welcome!");
 });
+
+controller.hears(['website'], 'direct_message,direct_mention,mention', function (bot, message) {
+
+  bot.api.reactions.add({
+    timestamp: message.ts,
+    channel: message.channel,
+    name: 'wink',
+  }, function (err, res) {
+    if (err) {
+      bot.botkit.log('Failed to add emoji reaction :(', err);
+    }
+  });
+  bot.reply(message, "Go here: http://gstellar.github.io");
+});
