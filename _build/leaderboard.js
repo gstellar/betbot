@@ -70,6 +70,51 @@ controller.hears(['loser'], ['direct_message', 'direct_mention'], function (bot,
     });
 });
 
+controller.hears(['steph curry with da shot boi'], ['direct_message', 'direct_mention'], function (bot, message) {
+    var responseObj = clutchThree(bot, message);
+    bot.reply(message, responseObj, function (err, resp) {
+        console.log(err, resp);
+    });
+});
+
+controller.hears(['I win'], ['direct_message', 'direct_mention'], function (bot, message) {
+    var responseObj = naenae(bot, message);
+    bot.reply(message, responseObj, function (err, resp) {
+        console.log(err, resp);
+    });
+});
+
+function clutchThree() {
+    var attachments = [];
+    var attachment = {
+        fallback: "Loser",
+        title: "YEE BOI",
+        text: "",
+        image_url: "https://m.popkey.co/b8ce80/0JkNz.gif",
+        mrkdwn_in: ["text"],
+    };
+
+    attachments.push(attachment);
+
+    return { attachments: attachments };
+}
+
+function naenae() {
+    var attachments = [];
+    var attachment = {
+        fallback: "Loser",
+        title: "You jelly?",
+        text: "",
+        image_url: "https://az616578.vo.msecnd.net/files/2016/04/05/6359547661728582381378324529_riley%20nae%20nae%20.gif",
+        mrkdwn_in: ["text"],
+    };
+
+    attachments.push(attachment);
+
+    return { attachments: attachments };
+}
+
+
 // Getters
 function showPosition(leaderboard, bot) {
     var formattedLeaderboard = [];
@@ -183,50 +228,3 @@ function loserMessage() {
 
     return { attachments: attachments };
 }
-
-// Call when games are oversssss
-// function addPoint(message) {
-
-//     var id = message.user;
-    
-//     // increment points by 1
-//     var points = parseInt(getPoints(message));
-//     points++;
-//     controller.storage.users.save({
-//         id: id,
-//         points: points
-//     }, function (err) {
-//         console.log(err);
-//     });
-    
-//     winnerMessage();
-// }
-
-// function getPoints(message) {
-//     var id = message.user;
-
-//     controller.storage.users.get(id, function (err, data) {
-//         if (data.name == null) {
-//             var name = bot["identity"]["name"];
-//             controller.storage.users.save({
-//                 id: id,
-//                 name: name
-//             }, function (err) {
-//                 console.log(err);
-//             });
-//         }
-//         if (data.points == null) {
-//             var points = 0;
-//             controller.storage.users.save({
-//                 id: id,
-//                 points: points
-//             }, function (err) {
-//                 console.log(err);
-//             });
-//             return 0;
-//         }
-//         else {
-//             return data.points;
-//         }
-//     });
-// }
