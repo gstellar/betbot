@@ -75,7 +75,7 @@ controller.hears(['all'], ['direct_message', 'direct_mention'], function (bot, m
     });
 });
 
-controller.hears(['current nba'], ['direct_message', 'direct_mention'], function (bot, message) {
+controller.hears(['current nba'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
     gbotSportsAPI.getNbaGames();
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
@@ -84,7 +84,7 @@ controller.hears(['current nba'], ['direct_message', 'direct_mention'], function
     });
 });
 
-controller.hears(['current nhl'], ['direct_message', 'direct_mention'], function (bot, message) {
+controller.hears(['current nhl'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
     gbotSportsAPI.getNhlGames();
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
