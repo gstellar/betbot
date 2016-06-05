@@ -16,7 +16,11 @@ var myMessage = null;
 
 eventEmitter.on('upcoming-games', function (games) {
     var responseObj = getUpcomingGames(games);
-    myCommand.replyPublic(myMessage, responseObj, function () { });
+    // var message = "TESTING";
+    //myCommand.replyPublic(myMessage, responseObj, function () { });
+    bot.reply(myMessage, responseObj, function (err, resp) {
+            console.log(err, resp);
+        });
 });
 
 /** Called from slashCommands.js */
@@ -51,6 +55,7 @@ controller.hears(['upcoming'], ['direct_message', 'direct_mention'], function (b
     ];
 
     // console.log(games);
+    myMessage = message;
 
     var responseObj = getUpcomingGames(games);
     if (responseObj) {
