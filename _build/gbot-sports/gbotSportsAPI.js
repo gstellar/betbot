@@ -22,7 +22,7 @@ gbotSportsAPI = (function () {
   function GetNBAGames() {
     options.url = 'https://www.stattleship.com/basketball/nba/games';
     request.get(options).then(function (e) {
-      eventEmitter.emit('upcoming-games', populateGames(e.games));
+      eventEmitter.emit('upcoming-games', populateGames(e.games, "basketball"));
     }).catch(function (e) {
       console.log("Error: " + e);
     });
@@ -31,22 +31,20 @@ gbotSportsAPI = (function () {
   function GetNHLGames() {
     options.url = 'https://www.stattleship.com/hockey/nhl/games';
       request.get(options).then(function (e) {
-        eventEmitter.emit('upcoming-games', populateGames(e.games));
+        eventEmitter.emit('upcoming-games', populateGames(e.games, "ice_hockey_stick_and_puck"));
       }).catch(function (e) {
         console.log("Error: " + e);
       });
   }
 
-  function populateGames(games) {
+  function populateGames(games, type) {
     var result = [];
     games.reverse();
     games.forEach((element, index) => {
-      var game = new Game(element, index);
+      var game = new Game(element, index, type);
       result.push(game);
     });
     return result;
   }
 
 })();
-
-gbotSportsAPI.getNbaGames();

@@ -44,7 +44,7 @@ gbotUtil = (function () {
             var today = new Date();
             if (newDate.getTime() === newDate1.getTime()) {
                 fields.push({
-                    title: "Game " + e.gameNumber + " will begin on " + e.date + " at " + e.time,
+                    title: ":" + e.type + ": Game " + e.gameNumber + " will begin on " + e.date + " at " + e.time,
                     color: '#ff6600',
                     short: false,
                 });
@@ -65,13 +65,12 @@ gbotUtil = (function () {
         var attachments = [];
         var fields = [];
         games.forEach(function (e) {
-            console.log(e);
             var newDate = Date.parse(formatDate(e.date));
             var today = new Date();
             var isUpcoming = newDate >= today.getTime();
             if (isUpcoming) {
                 fields.push({
-                    title: "Game " + e.gameNumber + " begins today at " + e.date,
+                    title: ":" + e.type + ": Game " + e.gameNumber + " (" + e.label + ")" + " begins today at " + e.date,
                     color: '#ff6600',
                     short: false,
                 });

@@ -43,7 +43,9 @@ controller.hears(['upcoming'], ['direct_message', 'direct_mention'], custom_hear
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-        bot.reply(message, responseObj, function () { });
+        bot.reply(message, responseObj, function () {
+            eventEmitter.removeAllListeners();
+         });
     });
 });
 
@@ -52,7 +54,9 @@ controller.hears(['upcoming nba'], ['direct_message', 'direct_mention'], custom_
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-        bot.reply(message, responseObj, function () { });
+        bot.reply(message, responseObj, function () { 
+            eventEmitter.removeAllListeners();
+        });
     });
 });
 
@@ -61,7 +65,9 @@ controller.hears(['upcoming nhl'], ['direct_message', 'direct_mention'], custom_
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-        bot.reply(message, responseObj, function () { });
+        bot.reply(message, responseObj, function () { 
+            eventEmitter.removeAllListeners();
+        });
     });
 });
 
@@ -71,7 +77,9 @@ controller.hears(['all'], ['direct_message', 'direct_mention'], function (bot, m
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-        bot.reply(message, responseObj, function () { });
+        bot.reply(message, responseObj, function () { 
+            eventEmitter.removeAllListeners();
+        });
     });
 });
 
@@ -80,7 +88,9 @@ controller.hears(['current nba'], ['direct_message', 'direct_mention'], custom_h
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createCurrentGamesAttachment(games);
-        bot.reply(message, responseObj, function () { });
+        bot.reply(message, responseObj, function () { 
+            eventEmitter.removeAllListeners();
+        });
     });
 });
 
@@ -89,7 +99,9 @@ controller.hears(['current nhl'], ['direct_message', 'direct_mention'], custom_h
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createCurrentGamesAttachment(games);
-        bot.reply(message, responseObj, function () { });
+        bot.reply(message, responseObj, function () {
+            eventEmitter.removeAllListeners();
+         });
     });
 });
 
