@@ -17,5 +17,4 @@ require('./bets.js');
 require('./leaderboard.js');
 require('./stats.js');
 require('./games.js');
-require('./conversations.js');
 require('./slashCommands.js');
