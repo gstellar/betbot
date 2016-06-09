@@ -1,5 +1,6 @@
-# Bet Bot: Your best bet in bot betting
->A great way to incorporate FUN into your office, without ever leaving Slack!
+# Bet Bot
+## Your best bet in bot betting
+>Bet on your favourite sports teams with your colleagues for unlimited office fun!
 
 ---    
 
@@ -9,6 +10,7 @@
 2. Launch the bot ``` token=<YOUR_TOKEN> npm start```
 
 [Optional] Tunnel your localhost to use slash commands
+
 1. ```npm install -g localtunnel``` 
 2. ```lt --port 8657 --subdomain newbot```
     
@@ -38,7 +40,8 @@ Accumulate points to win predetermined prizes.
 
 ## History
 The Bet Bot was created on June 4, 2016 at #SlackathonMTL by four developers trying to make it in this world. 
-**Our goal: to create better workplaces.
+
+Our goal: to create better workplaces.
 
 ---    
 
@@ -50,9 +53,9 @@ The Bet Bot was created on June 4, 2016 at #SlackathonMTL by four developers try
 
 ## FAQ
 1. Why was it created?
-    2.  Fantasy games are a great way to socialize with friends on a regular basis. It even gives the opportunity to make new friends!
-3.  Is it easy to use?
-    4. Yes, instruction to come
+    Fantasy games are a great way to socialize with friends on a regular basis. It even gives the opportunity to make new friends!
+2. Is it easy to use?
+    Yes, instructions to come
 
 ---    
 
