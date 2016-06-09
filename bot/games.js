@@ -9,65 +9,45 @@
 
 */
 
-// Listen for upcoming events
-
-/** Called from slashCommands.js */
-games = function games(slashCommand, message) {
-    var gameType = message.text;
-    
-    if (gameType == "nba") {
-        gbotSportsAPI.getNbaGames();
-    }
-    else if (gameType == "nhl") {
-        gbotSportsAPI.getNhlGames();
-    }
-    else {
-        slashCommand.replyPublic(message, "Use /games nba or /games nhl to get upcoming games of the league", function () { });
-    }
-}
 
 // Listening methods
 controller.hears(['upcoming'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
-    gbotSportsAPI.getNbaGames();
-    myMessage = message;
-    eventEmitter.on('upcoming-games', function (games) {
+
+    var nbaGamesList = gbotSportsAPI.getNbaGames();
+    nbaGamesList.then(function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
         bot.reply(message, responseObj, function () {
-            eventEmitter.removeAllListeners();
-         });
+            console.log("response sent")
+        });
     });
 });
 
 controller.hears(['upcoming nba'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
-    gbotSportsAPI.getNbaGames();
-    myMessage = message;
-    eventEmitter.on('upcoming-games', function (games) {
+    var nbaGamesList = gbotSportsAPI.getNbaGames();
+    nbaGamesList.then(function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-        bot.reply(message, responseObj, function () { 
-            eventEmitter.removeAllListeners();
+        bot.reply(message, responseObj, function () {
+            console.log("response sent")
         });
     });
 });
 
 controller.hears(['upcoming nhl'], ['direct_message', 'direct_mention'], custom_hear_middleware, function (bot, message) {
-    gbotSportsAPI.getNhlGames();
-    myMessage = message;
-    eventEmitter.on('upcoming-games', function (games) {
+    var nhlGameList = gbotSportsAPI.getNhlGames();
+    nhlGameList.then(function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-        bot.reply(message, responseObj, function () { 
-            eventEmitter.removeAllListeners();
+        bot.reply(message, responseObj, function () {
+            console.log("response sent")
         });
     });
 });
 
 controller.hears(['all'], ['direct_message', 'direct_mention'], function (bot, message) {
-
-    gbotSportsAPI.getNbaGames();
-    myMessage = message;
-    eventEmitter.on('upcoming-games', function (games) {
+    var nbaGamesList = gbotSportsAPI.getNbaGames();
+    nbaGamesList.then(function (games) {
         var responseObj = gbotUtil.createUpcomingGamesAttachment(games);
-        bot.reply(message, responseObj, function () { 
-            eventEmitter.removeAllListeners();
+        bot.reply(message, responseObj, function () {
+            console.log("response sent")
         });
     });
 });
@@ -77,7 +57,7 @@ controller.hears(['current nba'], ['direct_message', 'direct_mention'], custom_h
     myMessage = message;
     eventEmitter.on('upcoming-games', function (games) {
         var responseObj = gbotUtil.createCurrentGamesAttachment(games);
-        bot.reply(message, responseObj, function () { 
+        bot.reply(message, responseObj, function () {
             eventEmitter.removeAllListeners();
         });
     });
@@ -90,7 +70,7 @@ controller.hears(['current nhl'], ['direct_message', 'direct_mention'], custom_h
         var responseObj = gbotUtil.createCurrentGamesAttachment(games);
         bot.reply(message, responseObj, function () {
             eventEmitter.removeAllListeners();
-         });
+        });
     });
 });
 

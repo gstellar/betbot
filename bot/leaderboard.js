@@ -12,19 +12,6 @@ View leaderboard - username, rank, number of points
 
 */
 
-
-
-function leaderboard(slashCommand, message) {
-    var gameType = message.text;
-
-    if (gameType == "mine") {
-        showPosition(slashCommand, message);
-    }
-    else {
-        showLeaderboard(slashCommand, message);
-    }
-}
-
 // Listening methods
 controller.hears(['leaderboard'], ['direct_message', 'direct_mention'], function (bot, message) {
     leaderboard = [
@@ -33,7 +20,7 @@ controller.hears(['leaderboard'], ['direct_message', 'direct_mention'], function
         { rank: 3, name: "dramos", points: 3 },
         { rank: 4, name: "blynks", points: 1 },
     ];
-    var responseObj = showLeaderboard(leaderboard);
+    var responseObj = getLeaderboard(leaderboard);
     bot.reply(message, responseObj, function (err, resp) {
         console.log(err, resp);
     });
@@ -47,7 +34,7 @@ controller.hears(['my position'], ['direct_message', 'direct_mention'], function
         { rank: 4, name: "blynks", points: 1 },
     ];
 
-    var responseObj = showPosition(leaderboard, bot);
+    var responseObj = getPosition(leaderboard, bot);
     bot.reply(message, responseObj, function (err, resp) {
         console.log(err, resp);
     });
@@ -67,53 +54,8 @@ controller.hears(['loser'], ['direct_message', 'direct_mention'], function (bot,
     });
 });
 
-controller.hears(['steph curry with da shot boi'], ['direct_message', 'direct_mention'], function (bot, message) {
-    var responseObj = clutchThree(bot, message);
-    bot.reply(message, responseObj, function (err, resp) {
-        console.log(err, resp);
-    });
-});
-
-controller.hears(['I win'], ['direct_message', 'direct_mention'], function (bot, message) {
-    var responseObj = naenae(bot, message);
-    bot.reply(message, responseObj, function (err, resp) {
-        console.log(err, resp);
-    });
-});
-
-function clutchThree() {
-    var attachments = [];
-    var attachment = {
-        fallback: "Loser",
-        title: "YEE BOI",
-        text: "",
-        image_url: "https://m.popkey.co/b8ce80/0JkNz.gif",
-        mrkdwn_in: ["text"],
-    };
-
-    attachments.push(attachment);
-
-    return { attachments: attachments };
-}
-
-function naenae() {
-    var attachments = [];
-    var attachment = {
-        fallback: "Loser",
-        title: "You jelly?",
-        text: "",
-        image_url: "https://az616578.vo.msecnd.net/files/2016/04/05/6359547661728582381378324529_riley%20nae%20nae%20.gif",
-        mrkdwn_in: ["text"],
-    };
-
-    attachments.push(attachment);
-
-    return { attachments: attachments };
-}
-
-
 // Getters
-function showPosition(leaderboard, bot) {
+getPosition = function getPosition(leaderboard, bot) {
     var formattedLeaderboard = [];
 
     leaderboard.forEach(function (entry) {
@@ -154,7 +96,7 @@ function showPosition(leaderboard, bot) {
     return { attachments: attachments };
 }
 
-function showLeaderboard(leaderboard) {
+getLeaderboard = function getLeaderboard(leaderboard) {
 
     var formattedLeaderboard = [];
 

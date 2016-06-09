@@ -1,5 +1,6 @@
 var request = require('request-promise');
-require('./game.js');
+var game = require('./game.js');
+
 var accessToken = 'bfb4bec7f982be94e1051ad7b3bef7c9';
 var options = {
   headers: {
@@ -20,21 +21,25 @@ gbotSportsAPI = (function () {
   };
 
   function GetNBAGames() {
-    options.url = 'https://www.stattleship.com/basketball/nba/games';
-    request.get(options).then(function (e) {
-      eventEmitter.emit('upcoming-games', populateGames(e.games, "basketball"));
-    }).catch(function (e) {
-      console.log("Error: " + e);
+    return new Promise(function (resolve, reject) {
+      options.url = 'https://www.stattleship.com/basketball/nba/games';
+      request.get(options).then(function (e) {
+        resolve(populateGames(e.games, "basketball"));
+      }).catch(function (e) {
+        reject(Error("Unable to fetch data: " + e));
+      });
     });
   }
 
   function GetNHLGames() {
-    options.url = 'https://www.stattleship.com/hockey/nhl/games';
+    return new Promise(function (resolve, reject) {
+      options.url = 'https://www.stattleship.com/hockey/nhl/games';
       request.get(options).then(function (e) {
-        eventEmitter.emit('upcoming-games', populateGames(e.games, "ice_hockey_stick_and_puck"));
+        resolve(populateGames(e.games, "ice_hockey_stick_and_puck"));
       }).catch(function (e) {
-        console.log("Error: " + e);
+        reject(Error("Unable to fetch data: " + e));
       });
+    });
   }
 
   function populateGames(games, type) {
