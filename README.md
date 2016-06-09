@@ -53,8 +53,10 @@ Our goal: to create better workplaces.
 
 ## FAQ
 1. Why was it created?
+
     Fantasy games are a great way to socialize with friends on a regular basis. It even gives the opportunity to make new friends!
 2. Is it easy to use?
+
     Yes, instructions to come
 
 ---    
