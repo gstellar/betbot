@@ -70,7 +70,7 @@ gbotUtil = (function () {
             var isUpcoming = newDate >= today.getTime();
             if (isUpcoming) {
                 fields.push({
-                    title: ":" + e.type + ": Game " + e.gameNumber + " (" + e.label + ")" + " begins today at " + e.date,
+                    title: ":" + e.type + ": Game " + e.gameNumber + " (" + e.label + ")" + " on " + e.date,
                     color: '#ff6600',
                     short: false,
                 });
