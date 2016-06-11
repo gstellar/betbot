@@ -12,6 +12,95 @@ View leaderboard - username, rank, number of points
 
 */
 
+
+function calculateRank() {
+    
+    pointsArray = getPointsArray();
+    pointsInOrder = QuicksortDescending(Object.keys(pointsArray));
+
+    leaderboard = [];
+    var count = 1;
+    pointsInOrder.forEach(function (key) {
+        var temp = { rank: count, points: key, name: pointsArray[key] };
+        leaderboard.push(temp);
+        count += 1;
+    });
+
+    // console.log(leaderboard);
+};
+
+function getPointsArray() {
+
+    var pointsArray = { 20: "Stella", 31: "Eric", 1: "Alex", 12: "Al" };
+
+    return pointsArray;
+}
+
+var QuicksortDescending = (function(){
+    "use strict";
+    /**
+    * Quicksort algorithm
+    *
+    * @public
+    * @param {array} array Array which should be sorted.
+    * @return {array} Sorted array.
+    */
+
+    /**
+    * Partitions the array in two parts by the middle elements.
+    * All elements which are less than the chosen one goes left from it
+    * all which are greater goes right from it.
+    *
+    * @param {array} array Array which should be partitioned
+    * @param {number} left Left part of the array
+    * @param {number} right Right part of the array
+    * @return {number}
+    */
+    function partition(array, left, right) {
+        var pivot = array[(left + right) >>> 1];
+
+        while (left <= right) {
+            while (array[left] > pivot) { left++; }
+            while (array[right] < pivot) { right--; }
+            if (left <= right) {
+                var temp = array[left];
+                array[left++] = array[right];
+                array[right--] = temp;
+            }
+        }
+        return left;
+    }
+
+    /**
+    * Recursively calls itself with different values for
+    * left/right part of the array which should be processed
+    *
+    * @private
+    * @param {array} array Array which should be processed
+    * @param {number} left Left part of the array which should be processed
+    * @param {number} right Right part of the array which should be processed
+    */
+    function quicksort(array, left, right) {
+        var mid = partition(array, left, right);
+        if (left < mid - 1) {
+            quicksort(array, left, mid - 1);
+        }
+        if (right > mid) {
+            quicksort(array, mid, right);
+        }
+    }
+
+    /**
+    * Quicksort's initial point
+    * @public
+    */
+    return function (items) {
+        quicksort(items, 0, items.length - 1);
+        return items;
+    };
+
+}());
+
 // Listening methods
 controller.hears(['leaderboard'], ['direct_message', 'direct_mention'], function (bot, message) {
     leaderboard = [
