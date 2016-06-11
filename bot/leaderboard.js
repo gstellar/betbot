@@ -111,10 +111,11 @@ controller.hears(['leaderboard'], ['direct_message', 'direct_mention'], function
     });
 });
 
+
+// BROKEN
 controller.hears(['my position'], ['direct_message', 'direct_mention'], function (bot, message) {
     leaderboard = calculateRank();
-
-    var responseObj = getPosition(leaderboard, bot);
+    var responseObj = getPosition(leaderboard, bot, message);
     bot.reply(message, responseObj, function (err, resp) {
         console.log(err, resp);
     });
@@ -135,12 +136,14 @@ controller.hears(['loser'], ['direct_message', 'direct_mention'], function (bot,
 });
 
 // Getters
-getPosition = function getPosition(leaderboard, bot) {
+getPosition = function getPosition(leaderboard, bot, message) {
     var formattedLeaderboard = [];
 
     leaderboard.forEach(function (entry) {
 
-        if (entry.name == bot["identity"]["name"]) {
+             // NEED TO UPDATE TO FIND OWN USERNAME
+        if (entry.name == message.user) {
+              
             if (entry["rank"] == 1) {
                 formattedLeaderboard.push(
                     {
