@@ -27,11 +27,12 @@ function calculateRank() {
     });
 
     // console.log(leaderboard);
+    return leaderboard;
 };
 
 function getPointsArray() {
 
-    var pointsArray = { 20: "Stella", 31: "Eric", 1: "Alex", 12: "Al" };
+    var pointsArray = { 20: "stellarxo", 31: "alisterdev", 1: "Alex", 12: "Al" };
 
     return pointsArray;
 }
@@ -103,12 +104,7 @@ var QuicksortDescending = (function(){
 
 // Listening methods
 controller.hears(['leaderboard'], ['direct_message', 'direct_mention'], function (bot, message) {
-    leaderboard = [
-        { rank: 1, name: "stellarxo", points: 10 },
-        { rank: 2, name: "alisterdev", points: 6 },
-        { rank: 3, name: "dramos", points: 3 },
-        { rank: 4, name: "blynks", points: 1 },
-    ];
+    leaderboard = calculateRank();
     var responseObj = getLeaderboard(leaderboard);
     bot.reply(message, responseObj, function (err, resp) {
         console.log(err, resp);
@@ -116,12 +112,7 @@ controller.hears(['leaderboard'], ['direct_message', 'direct_mention'], function
 });
 
 controller.hears(['my position'], ['direct_message', 'direct_mention'], function (bot, message) {
-    leaderboard = [
-        { rank: 1, name: "stellarxo", points: 10 },
-        { rank: 2, name: "alisterdev", points: 6 },
-        { rank: 3, name: "dramos", points: 3 },
-        { rank: 4, name: "blynks", points: 1 },
-    ];
+    leaderboard = calculateRank();
 
     var responseObj = getPosition(leaderboard, bot);
     bot.reply(message, responseObj, function (err, resp) {
