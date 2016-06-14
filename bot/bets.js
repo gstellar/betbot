@@ -4,27 +4,13 @@ View or place bets
 
 */
 
-function bet(slashCommand, message) {
-    var gameType = message.text;
-    myCommand = slashCommand;
-    myMessage = message;
+// function bet(slashCommand, message) {
+//     var gameType = message.text;
+//     myCommand = slashCommand;
+//     myMessage = message;
 
-    if (gameType == "mine") {
-        var responseObj = getMyBets(bets, slashCommand);
-        slashCommand.reply(message, responseObj, function (err, resp) {
-            console.log(err, resp);
-        });
-    }
-    else if (gameType == "all") {
-        var responseObj = getAllBets(bets);
-        slashCommand.reply(message, responseObj, function (err, resp) {
-            console.log(err, resp);
-        });
-    }
-    else {
-        slashCommand.replyPublic(message, "Use /bets all or /bets mine to see all bets or your bets. Or, use @stellabot place bet to place a bet.", function () { });
-    }
-}
+
+// }
 
 controller.hears(['place bet'], ['direct_message', 'direct_mention'], function (bot, message) {
 
@@ -116,7 +102,7 @@ function placeBet(bot, message, gameID, team, bet) {
     });
 }
 
-function getMyBets(bets, bot, message) {
+getMyBets = function getMyBets(message) {
 
     var attachments = [];
     var attachment = {
@@ -129,7 +115,7 @@ function getMyBets(bets, bot, message) {
 
     controller.storage.users.get(id, function (err, data) {
 
-        bets.forEach(function (bet) {
+        // bets.forEach(function (bet) {
             if (data.name == bot["identity"]["name"]) {
 
                 attachment.fields.push({
@@ -145,14 +131,8 @@ function getMyBets(bets, bot, message) {
                     value: "You bet: " + data.bet + " :taco: on the " + ":" + data.team.toLowerCase() + ":" + data.team,
                     short: false,
                 });
-
-                // attachment.fields.push({
-                //     label: 'Field',
-                //     title: "You bet: " + data.bet + " :taco: on the " + data.team,
-                //     short: false,
-                // });
             }
-        }, this);
+        // }, this);
 
         attachment.fields.push({
             label: 'Field',
@@ -167,7 +147,7 @@ function getMyBets(bets, bot, message) {
 
 }
 
-function getAllBets(bot, message) {
+getAllBets = function getAllBets(message) {
     var attachments = [];
     var attachment = {
         fallback: "All Bets",
@@ -179,20 +159,13 @@ function getAllBets(bot, message) {
 
     controller.storage.users.get(id, function (err, data) {
 
-        bets.forEach(function (bet) {
+        // bets.forEach(function (bet) {
             attachment.fields.push({
                 title: "League: " + data.league,
-                title_link: 'http://nhl.com',
+                // title_link: 'http://nhl.com',
                 label: 'Field',
-                // value: "Game ID: " + bet.gameID,
                 short: false,
             });
-
-            // attachment.fields.push({
-            //     label: 'Field',
-            //     value: bet.date,
-            //     short: false,
-            // });
 
             attachment.fields.push({
                 label: 'Field',
@@ -208,7 +181,7 @@ function getAllBets(bot, message) {
         });
 
         attachments.push(attachment);
-    });
+    // });
 
     return { attachments: attachments };
 

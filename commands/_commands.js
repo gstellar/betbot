@@ -80,6 +80,47 @@ function showGames(slashCommand, message) {
 
 function placeBet(slashCommand, message) {
     // TODO
+
+
+    // if (gameType == "mine") {
+    //     var responseObj = getMyBets(bets, slashCommand);
+    //     slashCommand.reply(message, responseObj, function (err, resp) {
+    //         console.log(err, resp);
+    //     });
+    // }
+    // else if (gameType == "all") {
+    //     var responseObj = getAllBets(bets);
+    //     slashCommand.reply(message, responseObj, function (err, resp) {
+    //         console.log(err, resp);
+    //     });
+    // }
+    // else {
+    //     slashCommand.replyPublic(message, "Use /bets all or /bets mine to see all bets or your bets. Or, use @stellabot place bet to place a bet.", function () { });
+    // }
+    var arg = message ? message.text : "";
+
+    switch (arg) {
+        case "mine":
+            var responseObj = getMyBets(message);
+            break;
+        case "all":
+            var responseObj = getAllBets(message);
+            break;
+        case "place":
+            placeBet(bot, message);
+        default: // team name given
+            slashCommand.replyPublic(
+                message,
+                "Please choose a league to display (e.g /games nba)",
+                function () { /* Response sent*/ }
+            );
+    }
+
+
+    
+    slashCommand.replyPublic(message, responseObj, function () {
+        // Response sent
+    });
 }
 
 function showStats(slashCommand, message) {
