@@ -108,10 +108,10 @@ function placeBet(slashCommand, message) {
             break;
         case "place":
             placeBet(bot, message);
-        default: // team name given
+        default:
             slashCommand.replyPublic(
                 message,
-                "Please choose a league to display (e.g /games nba)",
+                "Please try again. Usage: /bet mine, /bet all, /bet place",
                 function () { /* Response sent*/ }
             );
     }
