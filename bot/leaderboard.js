@@ -142,7 +142,7 @@ getPosition = function getPosition(leaderboard, bot, message) {
     leaderboard.forEach(function (entry) {
 
              // NEED TO UPDATE TO FIND OWN USERNAME
-        if (entry.name == message.user) {
+        if (entry.name == bot["identity"]["name"]) {
               
             if (entry["rank"] == 1) {
                 formattedLeaderboard.push(
